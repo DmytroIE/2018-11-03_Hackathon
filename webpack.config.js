@@ -45,7 +45,7 @@ module.exports = {
       template: './src/index.html',
       favicon: './src/favicon.ico',
       filename: 'index.html',
-      title: "JS_Homework_13",
+      title: "Finance calc",
       view: view
     }),
     new MiniCssExtractPlugin({
