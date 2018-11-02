@@ -15,4 +15,4 @@ export default class Model extends EventEmitter {
 
 }
 
-console.log(uuidv1());
+//console.log(uuidv1());
