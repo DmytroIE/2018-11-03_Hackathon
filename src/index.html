@@ -8,11 +8,66 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu:300,400,500" rel="stylesheet">
 </head>
 
 <body>
-  <%= htmlWebpackPlugin.options.view %>
-  
+  <header class="header">
+    <nav class="nav header__nav">
+      <a href="#" class="logo nav__logo">
+        <img class="logo__img" src="img/logo.png" alt="Logo" width="86" height="23">
+    </a>
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a href="" id="expencies" class="nav__link">Доходы</a>
+      </li>
+      <li class="nav__item">
+        <a href="" id="incomes" class="nav__link">Расходы</a>
+      </li>
+      <li class="nav__item">
+        <a href="" id="goals" class="nav__link">Цели</a>
+      </li>
+      <li class="nav__item">
+        <a href="" id="charts" class="nav__link">Графики</a>
+      </li>
+      <li class="nav__item">
+        <a href="" id="settings" class="nav__link">Настройки</a>
+      </li>
+    </ul>
+    </nav>
+  </header>
+  <main class="main">
+    <section class="incomes">
+
+    </section>
+    <section class="expencies">
+      <input type="date" class="date expencies__date">
+
+        <form action="#" class="form expencies__form">
+        <input type="text" name="name" class="name form__name" placeholder="Название">
+        <input type="text" name="sum" class="name form__sum" placeholder="Сумма">
+        <select name="category" id="">
+          <option value="" disabled selected>Категория</option>
+          <option value="1">Ком.услуги</option>
+          <option value="2">Питание</option>
+          <option value="3">Разное</option>
+        </select>
+        <select name="type" id="">
+          <option value="1">Ежемесячные</option>
+          <option value="2">Каждодневные</option>
+          <option value="3">КЕШ</option>
+        </select>
+        <input type="submit" value="Добавить">
+      </form>
+
+    </section>
+    <section class="">
+
+    </section>
+
+
+
+  </main>
 
 
 </body>
