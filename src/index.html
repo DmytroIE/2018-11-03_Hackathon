@@ -52,7 +52,7 @@
 
         <form action="#" class="form expenses__form">
         <input type="text" name="name" class="name form__name" placeholder="Название" id="exp-name">
-        <input type="text" name="sum" class="name form__sum" placeholder="Сумма" id="exp-sum">
+        <input type="number" name="amount" class="name form__amount" placeholder="Сумма" id="exp-amount">
         <select name="category" id="exp-cat" class="category form__category">
           <option value="" disabled selected>Категория</option>
           <option value="1">Ком.услуги</option>
@@ -64,8 +64,9 @@
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
-        <div class="button form__button">
-            <input type="submit" class="form__submit" value="Добавить" id="create">
+        <div class="form__button-cont">
+          <button class="form__button" id="exp-create">Добавить</button>
+        
         </div>
        
       </form>
@@ -77,12 +78,11 @@
             <p class="sum">1000</p>
             <p class="cat">fvgbfj</p>
             <p class="type">fvgbhn</p>
-            <div class="edit input__edit" id="edit"></div>
-            <div class="delete input__delete" id="delete"></div>
+            <div class="edit input__edit" id="exp-edit"></div>
+            <div class="delete input__delete" id="exp-delete"></div>
          </li>
          
-       </ul>
-       
+       </ul>      
 
    
 
@@ -115,6 +115,14 @@
 
 
   </main>
+
+  <footer class="footer">
+    <p class="footer__content">
+      Разработано для GoIt | 2018
+    </p>
+
+
+  </footer>
 
 
 </body>
