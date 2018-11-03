@@ -10,8 +10,8 @@ export default class Controller {
     this._model.forcedRefresh(); // чтобы list отобразился во View
   }
 
-  createItem(itemData) {
-    this._model.createItem(itemData);
+  createItem(category, date, itemData) {
+    this._model.createItem(category, date, itemData);
   }
 
   changeItem(uuid, newItemData) {
