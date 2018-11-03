@@ -13,7 +13,7 @@
 
 <body>
   <header class="header">
-    <nav class="nav header__nav">
+    <nav class="nav header__nav container">
       <a href="#" class="logo nav__logo">
         <img class="logo__img" src="img/logo.png" alt="Logo" width="86" height="23">
     </a>
@@ -37,33 +37,80 @@
     </nav>
   </header>
   <main class="main">
-    <section class="incomes">
-
+    <section class="incomes container">
+<!-- 
+      Необходимо добавить -->
     </section>
-    <section class="expencies">
-      <input type="date" class="date expencies__date">
 
-        <form action="#" class="form expencies__form">
-        <input type="text" name="name" class="name form__name" placeholder="Название">
-        <input type="text" name="sum" class="name form__sum" placeholder="Сумма">
-        <select name="category" id="">
+    <section class="expenses container">
+      <div class="content expenses__content">
+
+      <div class="calendar expenses__calendar">
+          <input type="date" class="date expenses__date" id="calendar">
+      </div>
+      
+
+        <form action="#" class="form expenses__form">
+        <input type="text" name="name" class="name form__name" placeholder="Название" id="exp-name">
+        <input type="text" name="sum" class="name form__sum" placeholder="Сумма" id="exp-sum">
+        <select name="category" id="exp-cat" class="category form__category">
           <option value="" disabled selected>Категория</option>
           <option value="1">Ком.услуги</option>
           <option value="2">Питание</option>
           <option value="3">Разное</option>
         </select>
-        <select name="type" id="">
+        <select name="type" id="exp-type" class="type form__type">
           <option value="1">Ежемесячные</option>
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
-        <input type="submit" value="Добавить">
+        <div class="button form__button">
+            <input type="submit" class="form__submit" value="Добавить" id="create">
+        </div>
+       
       </form>
 
-    </section>
-    <section class="">
+   
+       <ul class="input expenses__input">
+         <li class="input__item">
+            <p class="name">ghgjk</p>
+            <p class="sum">1000</p>
+            <p class="cat">fvgbfj</p>
+            <p class="type">fvgbhn</p>
+            <div class="edit input__edit" id="edit"></div>
+            <div class="delete input__delete" id="delete"></div>
+         </li>
+         
+       </ul>
+       
+
+   
+
+
+      <div class="chart expenses__chart">
+      <canvas id="expenses-chart">
+       
+      </canvas>
+    </div>
+    </div>
 
     </section>
+    
+
+    <section class="goals container">
+<!-- 
+      Необходимо добавить -->
+    </section>
+
+    <section class="charts container">
+        <!-- 
+              Необходимо добавить -->
+    </section>
+
+    <section class="settings container">
+        <!-- 
+              Необходимо добавить -->
+    </section>        
 
 
 
