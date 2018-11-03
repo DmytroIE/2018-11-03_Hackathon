@@ -34,6 +34,20 @@ module.exports = {
       {
         test: /\.hbs$/, loader: "handlebars-loader",
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name:'[name].[ext]',
+              outputPath: 'img',
+              limit: 10000,
+            },
+          },
+            'img-loader',
+        ],
+      },
       
     ]
   },
@@ -57,5 +71,6 @@ module.exports = {
     // host: '192.168.88.48',
     // port: 9000
   }
+
 
 };
