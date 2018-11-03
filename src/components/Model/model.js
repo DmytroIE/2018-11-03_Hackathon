@@ -52,8 +52,8 @@ export default class Model extends EventEmitter {
     this.emitEvent("data_changed", this._data);
   }
 
-  changeItem(uuidOfChangedItem, newItemData) {
-    const changedItem = this._data.find(item => item.uuid.includes(uuidOfChangedItem));
+  editItem(uuidOfEditedItem, newItemData) {
+    const changedItem = this._data.find(item => item.uuid.includes(uuidOfEditedItem));
     changedItem.data = newItemData;
 
     this.emitEvent("data_changed", this._data);
@@ -90,6 +90,6 @@ export default class Model extends EventEmitter {
         delete item.index;
       }
     });
-    this.emitEvent("data_changed", this._data);
+    //this.emitEvent("data_changed", this._data);
   }
 }

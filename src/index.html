@@ -17,69 +17,71 @@
       <a href="#" class="logo nav__logo">
         <img class="logo__img" src="img/logo.png" alt="Logo" width="86" height="23">
     </a>
-    <ul class="nav__list">
+    <ul class="nav__list"  id="tabs">
       <li class="nav__item">
-        <a href="" id="expencies" class="nav__link">Доходы</a>
+        <a href="" id="expenses-tab" class="nav__link" data-index="0">Доходы</a>
       </li>
-      <li class="nav__item">
-        <a href="" id="incomes" class="nav__link">Расходы</a>
+      <li class="nav__item" >
+        <a href="" id="incomes-tab" class="nav__link" data-index="1">Расходы</a>
       </li>
-      <li class="nav__item">
-        <a href="" id="goals" class="nav__link">Цели</a>
+      <li class="nav__item" >
+        <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
       </li>
-      <li class="nav__item">
-        <a href="" id="charts" class="nav__link">Графики</a>
+      <li class="nav__item" >
+        <a href="" id="charts-tab" class="nav__link" data-index="3">Графики</a>
       </li>
-      <li class="nav__item">
-        <a href="" id="settings" class="nav__link">Настройки</a>
+      <li class="nav__item" >
+        <a href="" id="settings-tab" class="nav__link" data-index="4">Настройки</a>
       </li>
     </ul>
     </nav>
   </header>
   <main class="main">
-    <section class="incomes container">
+    <section class="income container" style="min-height: 600px" id="income-section">
 <!-- 
       Необходимо добавить -->
+      <p>INCOME</p>
+
     </section>
 
-    <section class="expenses container">
+    <section class="expenses container" id="expenses-section">
       <div class="content expenses__content">
 
       <div class="calendar expenses__calendar">
-          <input type="date" class="date expenses__date" id="calendar">
+          <input type="date" class="date expenses__date" id="expenses-calendar">
       </div>
       
 
         <form action="#" class="form expenses__form">
-        <input type="text" name="name" class="name form__name" placeholder="Название" id="exp-name">
-        <input type="number" name="amount" class="name form__amount" placeholder="Сумма" id="exp-amount">
-        <select name="category" id="exp-cat" class="category form__category">
+        <input type="text" name="name" class="name form__name" placeholder="Название" id="expenses-name">
+        <input type="number" name="amount" class="name form__amount" placeholder="Сумма" id="expenses-amount">
+        <select name="category" id="expenses-purpose" class="category form__category">
           <option value="" disabled selected>Категория</option>
           <option value="1">Ком.услуги</option>
           <option value="2">Питание</option>
           <option value="3">Разное</option>
         </select>
-        <select name="type" id="exp-type" class="type form__type">
+        <select name="type" id="expenses-periodicity" class="type form__type">
           <option value="1">Ежемесячные</option>
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
         <div class="form__button-cont">
-          <button class="form__button" id="exp-create">Добавить</button>
+          <button class="form__button" id="expenses-create">Добавить</button>
         
         </div>
        
       </form>
 
    
-       <ul class="input expenses__input">
+       <ul class="input expenses__input" id="expenses-list">
          <li class="input__item">
             <p class="name">ghgjk</p>
             <p class="sum">1000</p>
             <p class="cat">fvgbfj</p>
             <p class="type">fvgbhn</p>
-            <div class="edit input__edit" id="exp-edit"></div>
-            <div class="delete input__delete" id="exp-delete"></div>
+            <div class="edit input__edit" id="expenses-edit"></div>
+            <div class="delete input__delete" id="expenses-delete"></div>
          </li>
          
        </ul>      
@@ -97,19 +99,22 @@
     </section>
     
 
-    <section class="goals container">
+    <section class="goals container"  style="min-height: 600px" id="goals-section">
 <!-- 
       Необходимо добавить -->
+      <p>GOALS</p>
     </section>
 
-    <section class="charts container">
+    <section class="charts container"  style="min-height: 600px" id="charts-section">
         <!-- 
               Необходимо добавить -->
+              <p>CHARTS</p>
     </section>
 
-    <section class="settings container">
+    <section class="settings container"  style="min-height: 600px" id="settings-section">
         <!-- 
               Необходимо добавить -->
+              <p>SETTINGS</p>
     </section>        
 
 

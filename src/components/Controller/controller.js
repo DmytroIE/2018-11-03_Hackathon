@@ -14,11 +14,12 @@ export default class Controller {
     this._model.createItem(category, date, itemData);
   }
 
-  changeItem(uuid, newItemData) {
-    this._model.changeItem(uuid, newItemData);
+  editItem(uuid, newItemData) {
+    this._model.editItem(uuid, newItemData);
   }
 
   deleteItem(uuid) {
-    this._model.deleteItem(uuid);
+    alert(`delete `)
+    //this._model.deleteItem(uuid);
   }
 }
