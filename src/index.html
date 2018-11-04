@@ -39,10 +39,12 @@
 
 
   <main class="main">
-    <section class="income container section" style="min-height: 600px" id="income-section">
+    <section class="section"  id="income-section">
 <!-- 
       Необходимо добавить -->
-      <p>INCOME</p>
+      <div class="income section__content">
+        <p>INCOME</p>
+      </div>
 
     </section>
 
@@ -54,7 +56,7 @@
       </div>
       
 
-        <form action="#" class="exp-form expenses__form">
+        <form action="#" class="exp-form expenses__form" data-id="form">
         <input type="text" name="name" class="exp-form__name" placeholder="Название" data-id="name">
         <input type="number" min="0" name="amount" class="exp-form__amount" placeholder="Сумма" data-id="amount">
         <select name="purpose" data-id="purpose" class="exp-form__category">
@@ -69,12 +71,12 @@
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
-
+      <div class="exp-form__button-cont">
+          <input type="submit" class="exp-form__add-button" value="Добавить">
+      </div>
        
       </form>
-      <div class="expenses__button-cont">
-          <button class="expenses__add-button" data-id="create">Добавить</button>
-      </div>
+
 
    
        <ul class="expenses__list" data-id="list">
@@ -83,7 +85,7 @@
        </ul>      
 
    
-
+       <p class="expenses__total" data-id="total"></p>
 
       <div class="chart expenses__chart">
       <canvas data-id="chart">
@@ -95,22 +97,28 @@
     </section>
     
 
-    <section class="goals container section"  style="min-height: 600px" id="goals-section">
+    <section class="section"   id="goals-section">
 <!-- 
       Необходимо добавить -->
-      <p>GOALS</p>
+      <div class="goals section__content">
+        <p>GOALS</p>
+      </div>
     </section>
 
-    <section class="charts container section"  style="min-height: 600px" id="charts-section">
+    <section class="section"   id="charts-section">
         <!-- 
               Необходимо добавить -->
-              <p>CHARTS</p>
+              <div class="charts section__content">
+                <p>CHARTS</p>
+              </div>
     </section>
 
-    <section class="settings container section"  style="min-height: 600px" id="settings-section">
+    <section class="section"  id="settings-section">
         <!-- 
               Необходимо добавить -->
-              <p>SETTINGS</p>
+              <div class="settings section__content">
+                <p>SETTINGS</p>
+            </div>
     </section>        
 
 
