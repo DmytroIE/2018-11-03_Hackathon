@@ -36,32 +36,34 @@
     </ul>
     </nav>
   </header>
+
+
   <main class="main">
-    <section class="income container" style="min-height: 600px" id="income-section">
+    <section class="income container section" style="min-height: 600px" id="income-section">
 <!-- 
       Необходимо добавить -->
       <p>INCOME</p>
 
     </section>
 
-    <section class="expenses container" id="expenses-section">
-      <div class="content expenses__content">
+    <section class="section" id="expenses-section">
+      <div class="expenses section__content">
 
-      <div class="calendar expenses__calendar">
+      <div class="expenses__calendar">
           <input type="date" class="date expenses__date" data-id="calendar">
       </div>
       
 
-        <form action="#" class="form expenses__form">
-        <input type="text" name="name" class="name form__name" placeholder="Название" data-id="name">
-        <input type="number" min="0" name="amount" class="name form__amount" placeholder="Сумма" data-id="amount">
-        <select name="purpose" data-id="purpose" class="category form__category">
+        <form action="#" class="exp-form expenses__form">
+        <input type="text" name="name" class="exp-form__name" placeholder="Название" data-id="name">
+        <input type="number" min="0" name="amount" class="exp-form__amount" placeholder="Сумма" data-id="amount">
+        <select name="purpose" data-id="purpose" class="exp-form__category">
           <option value="0" disabled selected>Категория</option>
           <option value="1">Ком.услуги</option>
           <option value="2">Питание</option>
           <option value="3">Разное</option>
         </select>
-        <select name="periodicity" data-id="periodicity" class="type form__type">
+        <select name="periodicity" data-id="periodicity" class="exp-form__type">
           <option value="0" disabled selected>Периодичность</option>
           <option value="1">Ежемесячные</option>
           <option value="2">Каждодневные</option>
@@ -70,20 +72,13 @@
 
        
       </form>
-      <div class="form__button-cont">
-          <button class="form__button" data-id="create">Добавить</button>
+      <div class="expenses__button-cont">
+          <button class="expenses__add-button" data-id="create">Добавить</button>
       </div>
 
    
-       <ul class="input expenses__input" data-id="list">
-         <li class="input__item">
-            <p class="name">ghgjk</p>
-            <p class="sum">1000</p>
-            <p class="cat">fvgbfj</p>
-            <p class="type">fvgbhn</p>
-            <div class="edit input__edit" data-id="edit"></div>
-            <div class="delete input__delete" data-id="delete"></div>
-         </li>
+       <ul class="expenses__list" data-id="list">
+         <!-- Появляется динамически -->
          
        </ul>      
 
@@ -100,19 +95,19 @@
     </section>
     
 
-    <section class="goals container"  style="min-height: 600px" id="goals-section">
+    <section class="goals container section"  style="min-height: 600px" id="goals-section">
 <!-- 
       Необходимо добавить -->
       <p>GOALS</p>
     </section>
 
-    <section class="charts container"  style="min-height: 600px" id="charts-section">
+    <section class="charts container section"  style="min-height: 600px" id="charts-section">
         <!-- 
               Необходимо добавить -->
               <p>CHARTS</p>
     </section>
 
-    <section class="settings container"  style="min-height: 600px" id="settings-section">
+    <section class="settings container section"  style="min-height: 600px" id="settings-section">
         <!-- 
               Необходимо добавить -->
               <p>SETTINGS</p>
