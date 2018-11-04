@@ -29,6 +29,7 @@ body {
   margin: 0 auto;
 }
 .header{
+  min-height: 68px;
   padding: 24px 0;
   background-color: #3f51b5;
 }
@@ -83,19 +84,26 @@ body {
   }
 }
 .main{
-  background-color: #e6e6e6;
-  padding: 46px 120px;
+  
+  // padding: 46px 120px;
 }
 
 .section {
-
+  background-color: #e6e6e6;
+  // background-color: #ffffff;
+  padding: 46px 0px;
+  &__content{
+    margin: 0 auto;
+    background-color: #ffffff;
+    width: 1040px;
+  }
   &--hidden {
     display:none;
   }
 }
 
 .expenses{
-    background-color: #ffffff;
+  padding: 30px 100px 60px;
 
   &__calendar{
     text-align: center;
@@ -114,21 +122,60 @@ body {
     height: 250px;
     margin: 0 auto;
   }
-  &__input{
-    padding: 20px;
+  &__list{
+    padding: 30px 5px 20px 20px;
     list-style: none;
+    margin-bottom: 20px;
     
+  }
+  &__item{
+    margin-bottom: 15px;
+  }
+  &__button-cont{
+    margin-bottom: 20px;
+  }
+  &__add-button{
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    border: none;
+    background-color: #ff5722;
+    padding: 8px 40px;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-left: auto;
+    outline: transparent;
+    cursor: pointer;
   }
  
 }
-.input{
-  &__item{
+.exp-item{
+  
     display: flex;
     justify-content: space-around;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     color: #4d4d4d;
+
+  &__name,
+  &__purpose,
+  &__periodicity{
+    width: 150px;
+    margin-right: 60px;
   }
+  &__periodicity{
+    margin-right: 0;
+  }
+  &__purpose{
+    margin-right: 100px;
+  }
+  &__amount{
+    width: 90px;
+    margin-right: 60px;
+  }
+
   &__edit,
   &__delete{
     width: 20px;
@@ -137,13 +184,14 @@ body {
   }
   &__edit{
     background-image: url(img/edit.svg);
+    margin-right: 5px;
   }
   &__delete{
     background-image: url(img/x.svg);
   }
 }
 
-.form{
+.exp-form{
   &__name,
   &__amount,
   &__category,
@@ -172,27 +220,20 @@ body {
     width: 175px;
     margin-right: 0;
   }
-
-  &__button{
-    display: flex;
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 300;
-    border: none;
-    background-color: #ff5722;
-    padding: 8px 40px;
-    border-radius: 5px;
-    margin-top: 40px;
-    margin-left: auto;
-    outline: transparent;
-    cursor: pointer;
-  }
+   
 }
 .footer{
+  display: flex;
+  padding: 15px;
   background-color: #3f51b5;
-}
 
+  &__content{
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    font-size: 12px;
+    margin: 0 auto;
+  }
+}
  
 
 
