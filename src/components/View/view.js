@@ -1,6 +1,6 @@
 import EventEmitter from '../EventEmmiter/eventEmmiter';
-const expensesRecordTemplate = require("./expensesRecordTemplate.hbs");
 
+import ExpensesSection from './Sections/expenses-section';
 
 
 
@@ -11,20 +11,49 @@ export default class View extends EventEmitter {
   constructor(model) {
     super();
 
-    this._model = model;
-    this._sections = document.querySelectorAll('section[id$="section"]');
-    this._tabs = document.querySelectorAll('a[id$="tab"]');
+    this._sections = [
+      {
+        tab: document.getElementById('income-tab'),
+        HTMLEl: document.getElementById('income-section'),
+        item: null
+      },
+      {
+        tab: document.getElementById('expenses-tab'),
+        HTMLEl: document.getElementById('expenses-section'),
+        item: new ExpensesSection(document.getElementById('expenses-section'), {
+          createCb: this.handleCreate.bind(this),
+          editCb: this.handleEdit.bind(this),
+          deleteCb: this.handleDelete.bind(this),
+        }),
+
+      },
+    {
+      tab: document.getElementById('goals-tab'),
+      HTMLEl: document.getElementById('goals-section'),
+      item: null
+    },
+    {
+      tab: document.getElementById('charts-tab'),
+      HTMLEl: document.getElementById('charts-section'),
+      item: null
+    },
+    {
+      tab: document.getElementById('settings-tab'),
+      HTMLEl: document.getElementById('settings-section'),
+      item: null
+    },
+  ];
     this._activeSection = numberOfActiveSectionAtStartUp;
   
     this.setActiveSection(this._activeSection);
 
+    this._model = model;
     //----MODEL EVENTS----
     this._model.attachCallback('data_changed', this.render.bind(this));
 
     //----EVENTS----
     document.getElementById('tabs').addEventListener('click', this.handleTabs.bind(this));
-    document.getElementById('expenses-list').addEventListener('click', this.handleEdit.bind(this));
-    document.getElementById('expenses-list').addEventListener('click', this.handleDelete.bind(this));
+
 
   }
 
@@ -43,54 +72,49 @@ export default class View extends EventEmitter {
     this.setActiveSection(this._activeSection);
   }
 
-  handleCreate() {
-    
+  handleCreate(category, date, itemData) {
+    this.emitEvent('create', category, date, itemData); 
   }
 
-  handleEdit(event) {
-    if (!event.target.matches('div[id$="edit"]')) {
-      return;
-    }
-
-
+  handleEdit(uuid, newData) {
+    this.emitEvent('edit', uuid, ); 
   }
 
-  handleDelete(event) {
-    if (!event.target.matches('div[id$="delete"]')) {
-      return;
-    }
-    this.emitEvent('delete', event.target.parentElement.dataset.uuid);    
+  handleDelete(uuid) {
+
+    this.emitEvent('delete', uuid);    
   }
 
   render(listOfRecords) {
+    console.log('render in view');
     const sortedByCategories = {};
     listOfRecords.forEach(record => {
       if(!sortedByCategories[record.category]) {
         sortedByCategories[record.category] = [];
       }
-      sortedByCategories[record.category] = record;
+      sortedByCategories[record.category].push(record);
     })
 
-
+    this._sections[1].item.render(sortedByCategories['expenses'] || []);
   }
 
   //----AUX FUNCTIONS----
 
   setActiveSection(numberOfActiveSection) {
-    
-    this._sections[numberOfActiveSection].classList.remove('section--hidden');
+
+    this._sections[numberOfActiveSection].HTMLEl.classList.remove('section--hidden');
+    this._sections[numberOfActiveSection].tab.classList.add('nav__item--active');
+
     this._sections.forEach((section, idx) => {
       if (idx !== numberOfActiveSection) {
-        section.classList.add('section--hidden');
+        section.HTMLEl.classList.add('section--hidden');
+        section.tab.classList.remove('nav__item--active');
       }
     });
-
-    this._tabs[numberOfActiveSection].classList.add('nav__item--active');
-    this._tabs.forEach((tab, idx) => {
-      if (idx !== numberOfActiveSection) {
-        tab.classList.remove('nav__item--active');
-      }
-    });
-
   }
+
+   
+    
+
+
 }

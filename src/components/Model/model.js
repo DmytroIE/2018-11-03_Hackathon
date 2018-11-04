@@ -52,10 +52,17 @@ export default class Model extends EventEmitter {
     this.emitEvent("data_changed", this._data);
   }
 
-  editItem(uuidOfEditedItem, newItemData) {
+  editItem(uuidOfEditedItem, newData) {
     const changedItem = this._data.find(item => item.uuid.includes(uuidOfEditedItem));
-    changedItem.data = newItemData;
-
+    if(!changedItem) {
+      return;
+    }
+    
+    changedItem.data = newData;
+    if (storageAvailable("localStorage")) {
+      localStorage.removeItem(uuidOfDelItem);
+      localStorage.setItem(changedItem.uuid, JSON.stringify(changedItem));
+    }
     this.emitEvent("data_changed", this._data);
   }
 

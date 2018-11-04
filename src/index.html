@@ -19,10 +19,10 @@
     </a>
     <ul class="nav__list"  id="tabs">
       <li class="nav__item">
-        <a href="" id="expenses-tab" class="nav__link" data-index="0">Доходы</a>
+        <a href="" id="income-tab" class="nav__link" data-index="0">Доходы</a>
       </li>
       <li class="nav__item" >
-        <a href="" id="incomes-tab" class="nav__link" data-index="1">Расходы</a>
+        <a href="" id="expenses-tab" class="nav__link" data-index="1">Расходы</a>
       </li>
       <li class="nav__item" >
         <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
@@ -48,40 +48,41 @@
       <div class="content expenses__content">
 
       <div class="calendar expenses__calendar">
-          <input type="date" class="date expenses__date" id="expenses-calendar">
+          <input type="date" class="date expenses__date" data-id="calendar">
       </div>
       
 
         <form action="#" class="form expenses__form">
-        <input type="text" name="name" class="name form__name" placeholder="Название" id="expenses-name">
-        <input type="number" name="amount" class="name form__amount" placeholder="Сумма" id="expenses-amount">
-        <select name="category" id="expenses-purpose" class="category form__category">
-          <option value="" disabled selected>Категория</option>
+        <input type="text" name="name" class="name form__name" placeholder="Название" data-id="name">
+        <input type="number" min="0" name="amount" class="name form__amount" placeholder="Сумма" data-id="amount">
+        <select name="purpose" data-id="purpose" class="category form__category">
+          <option value="0" disabled selected>Категория</option>
           <option value="1">Ком.услуги</option>
           <option value="2">Питание</option>
           <option value="3">Разное</option>
         </select>
-        <select name="type" id="expenses-periodicity" class="type form__type">
+        <select name="periodicity" data-id="periodicity" class="type form__type">
+          <option value="0" disabled selected>Периодичность</option>
           <option value="1">Ежемесячные</option>
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
-        <div class="form__button-cont">
-          <button class="form__button" id="expenses-create">Добавить</button>
-        
-        </div>
+
        
       </form>
+      <div class="form__button-cont">
+          <button class="form__button" data-id="create">Добавить</button>
+      </div>
 
    
-       <ul class="input expenses__input" id="expenses-list">
+       <ul class="input expenses__input" data-id="list">
          <li class="input__item">
             <p class="name">ghgjk</p>
             <p class="sum">1000</p>
             <p class="cat">fvgbfj</p>
             <p class="type">fvgbhn</p>
-            <div class="edit input__edit" id="expenses-edit"></div>
-            <div class="delete input__delete" id="expenses-delete"></div>
+            <div class="edit input__edit" data-id="edit"></div>
+            <div class="delete input__delete" data-id="delete"></div>
          </li>
          
        </ul>      
@@ -90,7 +91,7 @@
 
 
       <div class="chart expenses__chart">
-      <canvas id="expenses-chart">
+      <canvas data-id="chart">
        
       </canvas>
     </div>
