@@ -76,6 +76,10 @@ body {
   &__item{
     margin-right: 35px;
 
+    &--active {
+      color:  #ff5722;
+    }
+
   }
 }
 .main{
@@ -83,7 +87,14 @@ body {
   padding: 46px 120px;
 }
 
-  .expenses{
+.section {
+
+  &--hidden {
+    display:none;
+  }
+}
+
+.expenses{
     background-color: #ffffff;
 
   &__calendar{
