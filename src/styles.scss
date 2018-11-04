@@ -126,30 +126,22 @@ body {
   &__list{
     padding: 30px 5px 20px 20px;
     list-style: none;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     
   }
   &__item{
     margin-bottom: 15px;
   }
-  &__button-cont{
-    margin-bottom: 20px;
+
+  &__total {
+    color:  #3f51b5;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 45px;
+    text-align: center;
   }
-  &__add-button{
-    display: flex;
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 300;
-    border: none;
-    background-color: #ff5722;
-    padding: 8px 40px;
-    border-radius: 5px;
-    margin-top: 40px;
-    margin-left: auto;
-    outline: transparent;
-    cursor: pointer;
-  }
+
  
 }
 .exp-item{
@@ -220,6 +212,24 @@ body {
   &__type{
     width: 175px;
     margin-right: 0;
+  }
+  &__button-cont{
+    
+  }
+  &__add-button{
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    border: none;
+    background-color: #ff5722;
+    padding: 8px 40px;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-left: auto;
+    outline: transparent;
+    cursor: pointer;
   }
    
 }

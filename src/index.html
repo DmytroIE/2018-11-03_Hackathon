@@ -56,7 +56,7 @@
       </div>
       
 
-        <form action="#" class="exp-form expenses__form">
+        <form action="#" class="exp-form expenses__form" data-id="form">
         <input type="text" name="name" class="exp-form__name" placeholder="Название" data-id="name">
         <input type="number" min="0" name="amount" class="exp-form__amount" placeholder="Сумма" data-id="amount">
         <select name="purpose" data-id="purpose" class="exp-form__category">
@@ -71,12 +71,12 @@
           <option value="2">Каждодневные</option>
           <option value="3">КЕШ</option>
         </select>
-
+      <div class="exp-form__button-cont">
+          <input type="submit" class="exp-form__add-button" value="Добавить">
+      </div>
        
       </form>
-      <div class="expenses__button-cont">
-          <button class="expenses__add-button" data-id="create">Добавить</button>
-      </div>
+
 
    
        <ul class="expenses__list" data-id="list">
@@ -85,7 +85,7 @@
        </ul>      
 
    
-
+       <p class="expenses__total" data-id="total"></p>
 
       <div class="chart expenses__chart">
       <canvas data-id="chart">

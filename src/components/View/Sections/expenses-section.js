@@ -19,14 +19,16 @@ export default class ExpensesSection {
       this._listOfRecords.addEventListener('click', this.handleDelete.bind(this));
       this._listOfRecords.addEventListener('click', this.handleEdit.bind(this));
 
-      this._createButton = root.querySelector('button[data-id="create"]');
-      this._createButton.addEventListener('click', this.handleCreate.bind(this));
+      this._form = root.querySelector('form[data-id="form"]');
+      this._form.addEventListener('submit', this.handleCreate.bind(this));
+
+      this._total = root.querySelector('p[data-id="total"]');
 
       this._calendar = root.querySelector('input[data-id="calendar"]');
       const date = new Date();
       let strDate = date.getFullYear() + 
       '-' +
-      (date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth()) +
+      (date.getMonth() < 9 ? '0' + date.getMonth() + 1: date.getMonth() + 1) +
       '-' +
       (date.getDate() < 10 ? '0' + date.getDate(): date.getDate());
       this._calendar.value = strDate;
@@ -71,8 +73,6 @@ export default class ExpensesSection {
           ]
         }
       };
-
-      //console.log(root.querySelector('canvas[data-id="chart"]').getContext("2d"));
     
       this._expenseChart = new Chart(root.querySelector('canvas[data-id="chart"]').getContext("2d"), {
       type: 'bar',
@@ -84,27 +84,27 @@ export default class ExpensesSection {
   }
 
   render(items) {
-    // console.log('render in expenses');
+  //  debugger
     if(items) {
       this._items = items; // хранить данные в объекте на случай, если понадобится обновить по событию календаря, а не извне
     }
     //Делаем массив записей только на соответствующую дату
-    const onlyForThisDate = this._items.filter(item => item.date.includes(this._calendar.value));
+    const onlyForThisDate = this._items.filter(item => { //чтобы не добавлялись записи, например, на 31е ноября
+      if (this._calendar.value) {return item.date.includes(this._calendar.value);}
+    });
 
-
-    // if(this._items.length > 0) {
-    //   const markup = this._items.reduce( (acc, curr) => acc + expensesRecordTemplate(curr),'')
-    //   this._listOfRecords.innerHTML = markup;
-    // } else {
-    //   this._listOfRecords.innerHTML = '<li >There are no records here yet</li>';
-    // }
+    
     //---------MARKUP---------
     if(onlyForThisDate.length > 0) {
       const markup = onlyForThisDate.reduce( (acc, curr) => acc + expensesRecordTemplate(curr),'')
       this._listOfRecords.innerHTML = markup;
     } else {
-      this._listOfRecords.innerHTML = '<li >There are no records here yet</li>';
+      this._listOfRecords.innerHTML = '<li class="exp-item">Добавьте свои расходы здесь</li>';
     }
+    //--------TOTAL----------
+    let totalAmount = 0; 
+    
+
     //--------CHART-----------
     const tempObj = {};
 
@@ -114,16 +114,16 @@ export default class ExpensesSection {
             acc[curr.data.purpose] = 0;
         }
       acc[curr.data.purpose] += +curr.data.amount;
+      totalAmount += +curr.data.amount;
       return acc;
       },
       tempObj
     )
     this._chartData.labels = Object.keys(tempObj);
     this._chartData.datasets[0].data = Object.values(tempObj);
-
-    //this._chartOptions.title.text = "yuoueginbjfgjdbvjbjdb";
-
     this._expenseChart.update();
+    
+    this._total.textContent = `Общая сумма: ${totalAmount}`;
   }
 
   handleEdit(event) {
@@ -143,8 +143,8 @@ export default class ExpensesSection {
   }
 
   handleCreate(event) {
-
-    event.stopPropagation();
+ 
+    event.preventDefault();
 
     if (!this._inputName.value.trim() ||
         !this._inputAmount.value.trim() || 
@@ -154,7 +154,11 @@ export default class ExpensesSection {
           alert('Некорректные данные');
           return;
         }
-
+    if (!this._calendar.value) { //чтобы не добавлялись записи, например, на 31е ноября
+      alert('Нет такой даты');
+      return;
+    }
+    
     const data = {
       name: this._inputName.value,
       amount: this._inputAmount.value,
@@ -163,5 +167,7 @@ export default class ExpensesSection {
     }
 
     this._props.createCb('expenses', this._calendar.value, data);
+
+    this._form.reset();
   }
 }
