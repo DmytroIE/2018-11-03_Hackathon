@@ -55,18 +55,29 @@ export default class ExpensesSection {
         ]
       };
 
-      console.log(root.querySelector('canvas[data-id="chart"]').getContext("2d"));
+      this._chartOptions = {
+        legend: { display: false },
+        title: {
+          display: false,
+          //text: 'Populations of Africa'
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      };
+
+      //console.log(root.querySelector('canvas[data-id="chart"]').getContext("2d"));
     
       this._expenseChart = new Chart(root.querySelector('canvas[data-id="chart"]').getContext("2d"), {
       type: 'bar',
       data: this._chartData,
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
-      }
+      options: this._chartOptions,
     });
       
 
@@ -77,7 +88,7 @@ export default class ExpensesSection {
     if(items) {
       this._items = items; // хранить данные в объекте на случай, если понадобится обновить по событию календаря, а не извне
     }
-    
+    //Делаем массив записей только на соответствующую дату
     const onlyForThisDate = this._items.filter(item => item.date.includes(this._calendar.value));
 
 
@@ -87,13 +98,32 @@ export default class ExpensesSection {
     // } else {
     //   this._listOfRecords.innerHTML = '<li >There are no records here yet</li>';
     // }
-
+    //---------MARKUP---------
     if(onlyForThisDate.length > 0) {
       const markup = onlyForThisDate.reduce( (acc, curr) => acc + expensesRecordTemplate(curr),'')
       this._listOfRecords.innerHTML = markup;
     } else {
       this._listOfRecords.innerHTML = '<li >There are no records here yet</li>';
     }
+    //--------CHART-----------
+    const tempObj = {};
+
+    onlyForThisDate.reduce(
+      (acc, curr) => {
+        if (!acc[curr.data.purpose]) {
+            acc[curr.data.purpose] = 0;
+        }
+      acc[curr.data.purpose] += +curr.data.amount;
+      return acc;
+      },
+      tempObj
+    )
+    this._chartData.labels = Object.keys(tempObj);
+    this._chartData.datasets[0].data = Object.values(tempObj);
+
+    //this._chartOptions.title.text = "yuoueginbjfgjdbvjbjdb";
+
+    this._expenseChart.update();
   }
 
   handleEdit(event) {
