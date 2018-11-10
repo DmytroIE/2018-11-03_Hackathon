@@ -1,3 +1,4 @@
+
 const expensesRecordTemplate = require("./expensesRecordTemplate.hbs");
 import Chart from 'chart.js';
 
@@ -18,6 +19,7 @@ export default class ExpensesSection {
       this._listOfRecords = root.querySelector('ul[data-id="list"]');
       this._listOfRecords.addEventListener('click', this.handleDelete.bind(this));
       this._listOfRecords.addEventListener('click', this.handleEdit.bind(this));
+      this._listOfRecords.addEventListener('click', this.handleConfirm.bind(this));
 
       this._form = root.querySelector('form[data-id="form"]');
       this._form.addEventListener('submit', this.handleCreate.bind(this));
@@ -34,10 +36,14 @@ export default class ExpensesSection {
       this._calendar.value = strDate;
       this._calendar.addEventListener('input', ()=>{this.render()});
 
+      this._editModeEnabled = false;
+
 
       this._items = []; // локальная копия данных для отображения, т.е. функция Render 
-                        // может вызываться как извне, с арнументом, так и изнутри, по событию календаря.
+                        // может вызываться как извне, с аргументом, так и изнутри, по событию календаря.
                         // Вот в этом втором случае используется внутренняя копия
+
+
 
       this._chartData = {
         labels: [],
@@ -131,7 +137,54 @@ export default class ExpensesSection {
     if (!event.target.matches('div[data-id="edit"]')) {
       return;
     }
-    //this._props.editCb(event.target.parentElement.dataset.uuid, );
+
+    if (this._editModeEnabled) {
+      return;
+    }
+
+    this._editModeEnabled = true;
+
+    event.target.parentElement.classList.add('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+    // Сделать функцией!!!!!!!!
+    const inputs = [...event.target.parentElement.querySelector('div').children];
+    inputs.forEach(child=>child.removeAttribute('disabled'));
+
+    
+  }
+
+  handleConfirm(event) {
+
+    if (!event.target.matches('div[data-id="confirm"]')) { 
+      return;
+    }
+ 
+    const inputName = event.target.parentElement.querySelector('input[data-id="edit-name"]');
+    const inputAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]');
+    const inputPurpose = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
+    const inputPeriodicity = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
+
+    const newData = {
+      name: inputName.value,
+      amount: inputAmount.value,
+      purpose: inputPurpose.options[inputPurpose.value-1].text,
+      periodicity: inputPeriodicity.options[inputPeriodicity.value-1].text,
+    }
+
+    this._props.editCb(event.target.parentElement.dataset.uuid, newData);
+
+    event.target.parentElement.classList.remove('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+
+    this._editModeEnabled = false;
+
+    // Сделать функцией!!!!!!!!
+    //const inputs = [...event.target.parentElement.querySelector('div').children];
+    //inputs.forEach(child=>child.setAttribute('disabled', true));
   }
 
   handleDelete(event) {

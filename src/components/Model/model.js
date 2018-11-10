@@ -57,10 +57,10 @@ export default class Model extends EventEmitter {
     if(!changedItem) {
       return;
     }
-    
+
     changedItem.data = newData;
     if (storageAvailable("localStorage")) {
-      localStorage.removeItem(uuidOfDelItem);
+      localStorage.removeItem(uuidOfEditedItem);
       localStorage.setItem(changedItem.uuid, JSON.stringify(changedItem));
     }
     this.emitEvent("data_changed", this._data);
