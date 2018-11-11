@@ -20,6 +20,7 @@ export default class ExpensesSection {
       this._listOfRecords.addEventListener('click', this.handleDelete.bind(this));
       this._listOfRecords.addEventListener('click', this.handleEdit.bind(this));
       this._listOfRecords.addEventListener('click', this.handleConfirm.bind(this));
+      this._listOfRecords.addEventListener('click', this.handleCancel.bind(this));
 
       this._form = root.querySelector('form[data-id="form"]');
       this._form.addEventListener('submit', this.handleCreate.bind(this));
@@ -141,7 +142,14 @@ export default class ExpensesSection {
     if (this._editModeEnabled) {
       return;
     }
+ 
+    // Запоминаем данные, которые были до редактирования на случай cancel
+    this._reservedName = event.target.parentElement.querySelector('input[data-id="edit-name"]').value;
+    this._reservedAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]').value;
+    this._reservedPurposeIdx = event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex;
+    this._reservedPeriodicityIdx = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex;
 
+    // Изменяем интерфейс
     this._editModeEnabled = true;
 
     event.target.parentElement.classList.add('exp-item--edited');
@@ -160,6 +168,15 @@ export default class ExpensesSection {
     if (!event.target.matches('div[data-id="confirm"]')) { 
       return;
     }
+
+    if (!this._inputName.value.trim() ||
+    !this._inputAmount.value.trim() || 
+    +this._inputAmount.value < 0 ||
+    +this._inputPurpose.value < 1 ||
+    +this._inputPeriodicity.value < 1 ) {
+      alert('Некорректные данные');
+      return;
+    }
  
     const inputName = event.target.parentElement.querySelector('input[data-id="edit-name"]');
     const inputAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]');
@@ -175,16 +192,39 @@ export default class ExpensesSection {
 
     this._props.editCb(event.target.parentElement.dataset.uuid, newData);
 
+    //event.target.parentElement.classList.remove('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    //const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    //buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+    
+    // Сделать функцией!!!!!!!!
+    //const inputs = [...event.target.parentElement.querySelector('div').children];
+    //inputs.forEach(child=>child.setAttribute('disabled', true));
+
+    this._editModeEnabled = false;
+  }
+
+  handleCancel(event) {
+
+    if (!event.target.matches('div[data-id="cancel"]')) { 
+      return;
+    }
+    // Возвращаем в инпуты значения, которые были до редактирования
+    event.target.parentElement.querySelector('input[data-id="edit-name"]').value = this._reservedName;
+    event.target.parentElement.querySelector('input[data-id="edit-amount"]').value = this._reservedAmount;
+    event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex = this._reservedPurposeIdx;
+    event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex = this._reservedPeriodicityIdx;
+
+
     event.target.parentElement.classList.remove('exp-item--edited');
     // Сделать функцией!!!!!!!!
     const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
     buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
 
-    this._editModeEnabled = false;
+    const inputs = [...event.target.parentElement.querySelector('div').children];
+    inputs.forEach(child=>child.setAttribute('disabled', true));
 
-    // Сделать функцией!!!!!!!!
-    //const inputs = [...event.target.parentElement.querySelector('div').children];
-    //inputs.forEach(child=>child.setAttribute('disabled', true));
+    this._editModeEnabled = false;
   }
 
   handleDelete(event) {
