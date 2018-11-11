@@ -1,6 +1,7 @@
 
 const expensesRecordTemplate = require("./expensesRecordTemplate.hbs");
 import Chart from 'chart.js';
+import { formDateString } from '../../../utils/date'
 
 export default class ExpensesSection {
   constructor(root, props) {
@@ -28,13 +29,13 @@ export default class ExpensesSection {
       this._total = root.querySelector('p[data-id="total"]');
 
       this._calendar = root.querySelector('input[data-id="calendar"]');
-      const date = new Date();
-      let strDate = date.getFullYear() + 
-      '-' +
-      (date.getMonth() < 9 ? '0' + date.getMonth() + 1: date.getMonth() + 1) +
-      '-' +
-      (date.getDate() < 10 ? '0' + date.getDate(): date.getDate());
-      this._calendar.value = strDate;
+      // const date = new Date();
+      // let strDate = date.getFullYear() + 
+      // '-' +
+      // (date.getMonth() < 9 ? '0' + date.getMonth() + 1: date.getMonth() + 1) +
+      // '-' +
+      // (date.getDate() < 10 ? '0' + date.getDate(): date.getDate());
+      this._calendar.value = /*strDate*/formDateString('-', -1);
       this._calendar.addEventListener('input', ()=>{this.render()});
 
       this._editModeEnabled = false;
@@ -169,25 +170,27 @@ export default class ExpensesSection {
       return;
     }
 
-    if (!this._inputName.value.trim() ||
-    !this._inputAmount.value.trim() || 
-    +this._inputAmount.value < 0 ||
-    +this._inputPurpose.value < 1 ||
-    +this._inputPeriodicity.value < 1 ) {
+    const name = event.target.parentElement.querySelector('input[data-id="edit-name"]').value;
+    const amount = +event.target.parentElement.querySelector('input[data-id="edit-amount"]').value;
+ 
+    const inputPurpose = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
+    const purpose = inputPurpose.options[inputPurpose.selectedIndex].text;
+    const inputPeriodicity = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
+    const periodicity = inputPeriodicity.options[inputPeriodicity.selectedIndex].text;
+
+    if (!name.trim() ||
+      amount <= 0 ) {
       alert('Некорректные данные');
       return;
     }
  
-    const inputName = event.target.parentElement.querySelector('input[data-id="edit-name"]');
-    const inputAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]');
-    const inputPurpose = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
-    const inputPeriodicity = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
+
 
     const newData = {
-      name: inputName.value,
-      amount: inputAmount.value,
-      purpose: inputPurpose.options[inputPurpose.value-1].text,
-      periodicity: inputPeriodicity.options[inputPeriodicity.value-1].text,
+      name,
+      amount,
+      purpose,
+      periodicity,
     }
 
     this._props.editCb(event.target.parentElement.dataset.uuid, newData);
@@ -240,13 +243,13 @@ export default class ExpensesSection {
     event.preventDefault();
 
     if (!this._inputName.value.trim() ||
-        !this._inputAmount.value.trim() || 
-        +this._inputAmount.value < 0 ||
-        +this._inputPurpose.value < 1 ||
-        +this._inputPeriodicity.value < 1 ) {
+        +this._inputAmount.value <= 0 ||
+        +this._inputPurpose.selectedIndex < 1 ||
+        +this._inputPeriodicity.selectedIndex < 1 ) {
           alert('Некорректные данные');
           return;
         }
+
     if (!this._calendar.value) { //чтобы не добавлялись записи, например, на 31е ноября
       alert('Нет такой даты');
       return;
@@ -255,12 +258,13 @@ export default class ExpensesSection {
     const data = {
       name: this._inputName.value,
       amount: this._inputAmount.value,
-      purpose: this._inputPurpose.options[this._inputPurpose.value].text,
-      periodicity: this._inputPeriodicity.options[this._inputPeriodicity.value].text,
+      purpose: this._inputPurpose.options[this._inputPurpose.selectedIndex/*value*/].text,
+      periodicity: this._inputPeriodicity.options[this._inputPeriodicity.selectedIndex/*value*/].text,
     }
 
     this._props.createCb('expenses', this._calendar.value, data);
 
     this._form.reset();
   }
+
 }

@@ -1,7 +1,7 @@
-@import './components/View/view.scss';
+@import "./components/View/view.scss";
 
 // Fonts
-$main-font: 'Roboto', sans-serif;
+$main-font: "Roboto", sans-serif;
 
 $thin: 100;
 $light: 300;
@@ -31,20 +31,87 @@ img {
   height: auto;
 }
 
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -58,7 +125,14 @@ body {
   font-weight: $light;
 }
 
-.header{
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.header {
   min-height: 68px;
   padding: 17px 0;
   background-color: #3f51b5;
@@ -68,130 +142,152 @@ body {
     margin: 0 auto;
   }
 }
-.nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  &__logo{
+  &__logo {
     display: block;
     text-decoration: none;
     width: 107px;
   }
-  &__list{
+  &__list {
     display: flex;
     list-style: none;
-  }  
-  
-  &__item{
+  }
+
+  &__item {
     margin-right: 41px;
 
-
-    &:last-child{
+    &:last-child {
       margin-right: 5px;
     }
   }
 
-  &__link{
+  &__link {
     position: relative;
     color: $main-color-light;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Ubuntu", sans-serif;
     font-size: 20px;
     font-weight: $light;
     text-decoration: none;
 
     &--active {
-      color:  $main-color-warm;
-    }
-        
-    &:hover{
       color: $main-color-warm;
     }
- 
-    &:hover::after{
+
+    &:hover {
+      color: $main-color-warm;
+    }
+
+    &:hover::after {
       width: 100%;
     }
 
-    &::after{
+    &::after {
       //margin-top: 10px;
       display: block;
       position: absolute;
-      bottom: -23px;    
-      left: 0;    
+      bottom: -23px;
+      left: 0;
       width: 0;
       height: 3px;
-      background-color:  $main-color-warm;
+      background-color: $main-color-warm;
       content: "";
       transition: width 0.3s ease-out;
     }
   }
-
 }
-.main{
-
+.main {
 }
 
 .section {
   background-color: #e6e6e6;
   padding: 46px 0px;
 
-  &__content{
+  &__content {
     margin: 0 auto;
     background-color: $main-color-light;
     width: $desktop-wrapper-width;
-    
   }
   &--hidden {
-    display:none;
+    display: none;
   }
 }
 
-.expenses{
+.expenses {
   padding: 30px 150px 60px;
   min-height: 600px;
 
-  &__calendar{
+  &__calendar-cont {
     text-align: center;
     margin-bottom: 55px;
-    
   }
 
-  &__form{
+  &__form {
     text-align: center;
     margin-bottom: 40px;
   }
-  &__chart{
+  &__chart {
     width: 350px;
     height: 250px;
     margin: 0 auto;
   }
-  &__list{
+  &__list {
     padding: 30px 0;
     list-style: none;
     margin-bottom: 50px;
-    
   }
-  &__item{
+  &__item {
     margin-bottom: 15px;
 
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
-
   }
 
   &__total {
-    color:  #3f51b5;
-    font-family: 'Ubuntu', sans-serif;
+    color: #3f51b5;
+    font-family: "Ubuntu", sans-serif;
     font-size: 26px;
     font-weight: 400;
     margin-bottom: 45px;
     text-align: center;
   }
-
- 
 }
-.exp-item{
+
+.calendar {
+  font-family: $main-font;
+  color: $headings-color;
+  font-size: 26px;
+  font-weight: $thin;
+  border: none;
+
+  //for firefox
+  //clip-path: inset(0 8px 0 0);
+  position: relative;
+
+  &::-webkit-calendar-picker-indicator {
+    color: transparent;
+    opacity: 1;
+    background: url("./img/calendar.svg") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  &::-webkit-clear-button {
+    display: none;
+  }
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+
+}
+
+.exp-item {
   display: flex;
   justify-content: space-between;
 
@@ -199,18 +295,17 @@ body {
     background-color: #dfcbcb;
     padding: 5px 0;
   }
-  
+
   &__inputs-line {
     flex-grow: 1;
     margin-right: 15px;
 
-    & select[data-id=edit-periodicity] {
+    & select[data-id="edit-periodicity"] {
       width: 130px;
     }
   }
 
   &__item-buttons {
-  
   }
 
   // &__edit,
@@ -229,68 +324,64 @@ body {
 }
 
 .exp-inputs-line {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    &__name,
-    &__amount,
-    &__purpose,
-    &__periodicity {
+  &__name,
+  &__amount,
+  &__purpose,
+  &__periodicity {
+    color: $text-color-dark;
+    font-size: 16px;
+    font-weight: $light;
+    border: none;
+    border-bottom: 1px solid $text-color-light;
+    outline: transparent;
 
-      color: $text-color-dark;
-      font-size: 16px;
-      font-weight: $light;
-      border: none;
-      border-bottom: 1px solid $text-color-light;
-      outline: transparent;
-   
-  
-      &::placeholder{
-        color: $text-color-light;
-      }
-
-      &:disabled{
-        background-color: $main-color-light;
-        border: none;     
-        color: $text-color-dark;
-
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        //text-indent: 0.1;
-        //text-overflow: '';
-      }
-    }
-    &__name{
-      width: 170px;
-    }
-    &__amount{
-    width: 80px;
-    }
-    &__purpose,
-    &__periodicity {
-      width: 170px;
+    &::placeholder {
       color: $text-color-light;
-  
-      & option:nth-of-type(n+2) {
-        color: $text-color-dark;
-      }
-  
     }
+
+    &:disabled {
+      background-color: $main-color-light;
+      border: none;
+      color: $text-color-dark;
+
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      //text-indent: 0.1;
+      //text-overflow: '';
+    }
+  }
+  &__name {
+    width: 170px;
+  }
+  &__amount {
+    width: 80px;
+    
+  }
+  &__purpose,
+  &__periodicity {
+    width: 170px;
+    color: $text-color-light;
+
+    & option:nth-of-type(n + 2) {
+      color: $text-color-dark;
+    }
+  }
 }
 
-.exp-form{
-
+.exp-form {
   &__inputs-line {
     margin-bottom: 20px;
   }
 
-  &__button-cont{
-    
+  &__button-cont {
   }
-  &__add-button{
+  &__add-button {
     display: flex;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     color: #ffffff;
     font-size: 16px;
     font-weight: 300;
@@ -303,11 +394,9 @@ body {
     outline: transparent;
     cursor: pointer;
   }
-   
 }
 
 .item-button {
-
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -316,44 +405,32 @@ body {
     display: none;
   }
 
-  &__edit{
+  &__edit {
     background-image: url(img/edit.svg);
     margin-right: 5px;
- 
   }
-  &__delete{
+  &__delete {
     background-image: url(img/x.svg);
-
   }
 
-  &__confirm{
+  &__confirm {
     background-image: url(img/confirm.svg);
     margin-right: 5px;
-
   }
-  &__cancel{
+  &__cancel {
     background-image: url(img/x-bold.svg);
-
   }
-
 }
 
-.footer{
+.footer {
   display: flex;
   padding: 15px;
   background-color: #3f51b5;
 
-  &__content{
-    font-family: 'Roboto', sans-serif;
+  &__content {
+    font-family: "Roboto", sans-serif;
     color: #ffffff;
     font-size: 12px;
     margin: 0 auto;
   }
 }
- 
-
-
-
-
-
-

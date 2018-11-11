@@ -2,7 +2,7 @@
 
   <div class="exp-inputs-line exp-item__inputs-line">
     <input type="text" name="name" class="exp-inputs-line__name" value="{{data.name}}" data-id="edit-name" maxlength="20" disabled>
-    <input type="number" min="0" name="amount" class="exp-inputs-line__amount" value={{data.amount}} data-id="edit-amount" disabled>
+    <input type="number" name="amount" class="exp-inputs-line__amount" value={{data.amount}} data-id="edit-amount" disabled>
     <select name="purpose" data-id="edit-purpose" class="exp-inputs-line__purpose" disabled>
       <option value="1" {{compareStrings data.purpose 'Ком.услуги' 'selected'}}>Ком.услуги</option>
       <option value="2" {{compareStrings data.purpose 'Питание' 'selected'}}>Питание</option>
