@@ -1,139 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Finance calc</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu:300,400,500"
+      rel="stylesheet"
+    />
+  <link rel="shortcut icon" href="favicon.ico"><link href="main.css?5f85da6334afe078751e" rel="stylesheet"></head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>
-    Finance calc
-  </title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu:300,400,500" rel="stylesheet">
-<link rel="shortcut icon" href="favicon.ico"><link href="main.css?5269790fde59e4f1133b" rel="stylesheet"></head>
+  <body>
+    <header class="header">
+      <nav class="nav header__nav ">
+        <a href="#" class="logo nav__logo">
+          <img
+            class="logo__img"
+            src="img/logo.png"
+            alt="Logo"
+            width="86"
+            height="23"
+          />
+        </a>
+        <ul class="nav__list" id="tabs">
+          <li class="nav__item">
+            <a href="" id="income-tab" class="nav__link" data-index="0">Доходы</a>
+          </li>
+          <li class="nav__item">
+            <a href="" id="expenses-tab" class="nav__link" data-index="1">Расходы</a>
+          </li>
+          <li class="nav__item">
+            <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
+          </li>
+          <li class="nav__item">
+            <a href="" id="charts-tab" class="nav__link" data-index="3">Графики</a>
+          </li>
+          <li class="nav__item">
+            <a href="" id="settings-tab" class="nav__link" data-index="4">Настройки</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-<body>
-  <header class="header">
-    <nav class="nav header__nav container">
-      <a href="#" class="logo nav__logo">
-        <img class="logo__img" src="img/logo.png" alt="Logo" width="86" height="23">
-    </a>
-    <ul class="nav__list"  id="tabs">
-      <li class="nav__item">
-        <a href="" id="income-tab" class="nav__link" data-index="0">Доходы</a>
-      </li>
-      <li class="nav__item" >
-        <a href="" id="expenses-tab" class="nav__link" data-index="1">Расходы</a>
-      </li>
-      <li class="nav__item" >
-        <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
-      </li>
-      <li class="nav__item" >
-        <a href="" id="charts-tab" class="nav__link" data-index="3">Графики</a>
-      </li>
-      <li class="nav__item" >
-        <a href="" id="settings-tab" class="nav__link" data-index="4">Настройки</a>
-      </li>
-    </ul>
-    </nav>
-  </header>
+    <main class="main">
+      <section class="section" id="income-section">
+        <!-- Необходимо добавить -->
+        <div class="income section__content"><p>INCOME</p></div>
+      </section>
 
+      <section class="section" id="expenses-section">
+        <div class="expenses section__content">
+          <div class="expenses__calendar-cont">
+            <input type="date" class="calendar expenses__calendar" data-id="calendar" >
+          </div>
 
-  <main class="main">
-    <section class="section"  id="income-section">
-<!-- 
-      Необходимо добавить -->
-      <div class="income section__content">
-        <p>INCOME</p>
-      </div>
-
-    </section>
-
-    <section class="section" id="expenses-section">
-      <div class="expenses section__content">
-
-      <div class="expenses__calendar">
-          <input type="date" class="date expenses__date" data-id="calendar">
-      </div>
-      
-
-        <form action="#" class="exp-form expenses__form" data-id="form">
-        <input type="text" name="name" class="exp-form__name" placeholder="Название" data-id="name">
-        <input type="number" min="0" name="amount" class="exp-form__amount" placeholder="Сумма" data-id="amount">
-        <select name="purpose" data-id="purpose" class="exp-form__category">
-          <option value="0" disabled selected>Категория</option>
-          <option value="1">Ком.услуги</option>
-          <option value="2">Питание</option>
-          <option value="3">Разное</option>
-        </select>
-        <select name="periodicity" data-id="periodicity" class="exp-form__type">
-          <option value="0" disabled selected>Периодичность</option>
-          <option value="1">Ежемесячные</option>
-          <option value="2">Каждодневные</option>
-          <option value="3">КЕШ</option>
-        </select>
-      <div class="exp-form__button-cont">
-          <input type="submit" class="exp-form__add-button" value="Добавить">
-      </div>
-       
-      </form>
-
-
-   
-       <ul class="expenses__list" data-id="list">
-         <!-- Появляется динамически -->
-         
-       </ul>      
-
-   
-       <p class="expenses__total" data-id="total"></p>
-
-      <div class="chart expenses__chart">
-      <canvas data-id="chart">
-       
-      </canvas>
-    </div>
-    </div>
-
-    </section>
-    
-
-    <section class="section"   id="goals-section">
-<!-- 
-      Необходимо добавить -->
-      <div class="goals section__content">
-        <p>GOALS</p>
-      </div>
-    </section>
-
-    <section class="section"   id="charts-section">
-        <!-- 
-              Необходимо добавить -->
-              <div class="charts section__content">
-                <p>CHARTS</p>
-              </div>
-    </section>
-
-    <section class="section"  id="settings-section">
-        <!-- 
-              Необходимо добавить -->
-              <div class="settings section__content">
-                <p>SETTINGS</p>
+          <form action="#" class="exp-form expenses__form" data-id="form">
+            <div class="exp-inputs-line exp-form__inputs-line">
+              <input
+                type="text"
+                name="name"
+                class="exp-inputs-line__name"
+                placeholder="Название"
+                data-id="name"
+                maxlength="20"
+              >
+              <input
+                type="number"
+                name="amount"
+                class="exp-inputs-line__amount"
+                placeholder="Сумма"
+                data-id="amount"
+              >
+              <select
+                name="purpose"
+                data-id="purpose"
+                class="exp-inputs-line__purpose"
+                >
+                <option value="0" disabled selected>Категория</option>
+                <option value="1">Ком.услуги</option>
+                <option value="2">Питание</option>
+                <option value="3">Разное</option>
+              </select>
+              <select
+                name="periodicity"
+                data-id="periodicity"
+                class="exp-inputs-line__periodicity"
+              >
+                <option value="0" disabled selected>Периодичность</option>
+                <option value="1">Ежемесячные</option>
+                <option value="2">Каждодневные</option>
+                <option value="3">КЕШ</option>
+              </select>
             </div>
-    </section>        
+            <div class="exp-form__button-cont">
+              <input
+                type="submit"
+                class="exp-form__add-button"
+                value="Добавить"
+              />
+            </div>
+          </form>
 
+          <ul class="expenses__list" data-id="list">
+            <!-- Появляется динамически -->
+          </ul>
 
+          <p class="expenses__total" data-id="total"></p>
 
-  </main>
+          <div class="chart expenses__chart">
+            <canvas data-id="chart"> </canvas>
+          </div>
+        </div>
+      </section>
 
-  <footer class="footer">
-    <p class="footer__content">
-      Разработано для GoIt | 2018
-    </p>
+      <section class="section" id="goals-section">
+        <!-- Необходимо добавить -->
+        <div class="goals section__content"><p>GOALS</p></div>
+      </section>
 
+      <section class="section" id="charts-section">
+        <!-- Необходимо добавить -->
+        <div class="charts section__content"><p>CHARTS</p></div>
+      </section>
 
-  </footer>
+      <section class="section" id="settings-section">
+        <!-- Необходимо добавить -->
+        <div class="settings section__content"><p>SETTINGS</p></div>
+      </section>
+    </main>
 
-
-<script type="text/javascript" src="bundle.js?5269790fde59e4f1133b"></script></body>
-
+    <footer class="footer">
+      <p class="footer__content">Разработано для GoIt | 2018</p>
+    </footer>
+  <script type="text/javascript" src="bundle.js?5f85da6334afe078751e"></script></body>
 </html>
