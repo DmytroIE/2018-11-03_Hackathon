@@ -1,5 +1,7 @@
+
 const expensesRecordTemplate = require("./expensesRecordTemplate.hbs");
 import Chart from 'chart.js';
+import { formDateString } from '../../../utils/date'
 
 export default class ExpensesSection {
   constructor(root, props) {
@@ -18,6 +20,8 @@ export default class ExpensesSection {
       this._listOfRecords = root.querySelector('ul[data-id="list"]');
       this._listOfRecords.addEventListener('click', this.handleDelete.bind(this));
       this._listOfRecords.addEventListener('click', this.handleEdit.bind(this));
+      this._listOfRecords.addEventListener('click', this.handleConfirm.bind(this));
+      this._listOfRecords.addEventListener('click', this.handleCancel.bind(this));
 
       this._form = root.querySelector('form[data-id="form"]');
       this._form.addEventListener('submit', this.handleCreate.bind(this));
@@ -25,19 +29,23 @@ export default class ExpensesSection {
       this._total = root.querySelector('p[data-id="total"]');
 
       this._calendar = root.querySelector('input[data-id="calendar"]');
-      const date = new Date();
-      let strDate = date.getFullYear() + 
-      '-' +
-      (date.getMonth() < 9 ? '0' + date.getMonth() + 1: date.getMonth() + 1) +
-      '-' +
-      (date.getDate() < 10 ? '0' + date.getDate(): date.getDate());
-      this._calendar.value = strDate;
+      // const date = new Date();
+      // let strDate = date.getFullYear() + 
+      // '-' +
+      // (date.getMonth() < 9 ? '0' + date.getMonth() + 1: date.getMonth() + 1) +
+      // '-' +
+      // (date.getDate() < 10 ? '0' + date.getDate(): date.getDate());
+      this._calendar.value = /*strDate*/formDateString('-', -1);
       this._calendar.addEventListener('input', ()=>{this.render()});
+
+      this._editModeEnabled = false;
 
 
       this._items = []; // локальная копия данных для отображения, т.е. функция Render 
-                        // может вызываться как извне, с арнументом, так и изнутри, по событию календаря.
+                        // может вызываться как извне, с аргументом, так и изнутри, по событию календаря.
                         // Вот в этом втором случае используется внутренняя копия
+
+
 
       this._chartData = {
         labels: [],
@@ -131,7 +139,95 @@ export default class ExpensesSection {
     if (!event.target.matches('div[data-id="edit"]')) {
       return;
     }
-    //this._props.editCb(event.target.parentElement.dataset.uuid, );
+
+    if (this._editModeEnabled) {
+      return;
+    }
+ 
+    // Запоминаем данные, которые были до редактирования на случай cancel
+    this._reservedName = event.target.parentElement.querySelector('input[data-id="edit-name"]').value;
+    this._reservedAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]').value;
+    this._reservedPurposeIdx = event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex;
+    this._reservedPeriodicityIdx = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex;
+
+    // Изменяем интерфейс
+    this._editModeEnabled = true;
+
+    event.target.parentElement.classList.add('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+    // Сделать функцией!!!!!!!!
+    const inputs = [...event.target.parentElement.querySelector('div').children];
+    inputs.forEach(child=>child.removeAttribute('disabled'));
+
+    
+  }
+
+  handleConfirm(event) {
+
+    if (!event.target.matches('div[data-id="confirm"]')) { 
+      return;
+    }
+
+    const name = event.target.parentElement.querySelector('input[data-id="edit-name"]').value;
+    const amount = +event.target.parentElement.querySelector('input[data-id="edit-amount"]').value;
+ 
+    const inputPurpose = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
+    const purpose = inputPurpose.options[inputPurpose.selectedIndex].text;
+    const inputPeriodicity = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
+    const periodicity = inputPeriodicity.options[inputPeriodicity.selectedIndex].text;
+
+    if (!name.trim() ||
+      amount <= 0 ) {
+      alert('Некорректные данные');
+      return;
+    }
+ 
+
+
+    const newData = {
+      name,
+      amount,
+      purpose,
+      periodicity,
+    }
+
+    this._props.editCb(event.target.parentElement.dataset.uuid, newData);
+
+    //event.target.parentElement.classList.remove('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    //const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    //buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+    
+    // Сделать функцией!!!!!!!!
+    //const inputs = [...event.target.parentElement.querySelector('div').children];
+    //inputs.forEach(child=>child.setAttribute('disabled', true));
+
+    this._editModeEnabled = false;
+  }
+
+  handleCancel(event) {
+
+    if (!event.target.matches('div[data-id="cancel"]')) { 
+      return;
+    }
+    // Возвращаем в инпуты значения, которые были до редактирования
+    event.target.parentElement.querySelector('input[data-id="edit-name"]').value = this._reservedName;
+    event.target.parentElement.querySelector('input[data-id="edit-amount"]').value = this._reservedAmount;
+    event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex = this._reservedPurposeIdx;
+    event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex = this._reservedPeriodicityIdx;
+
+
+    event.target.parentElement.classList.remove('exp-item--edited');
+    // Сделать функцией!!!!!!!!
+    const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
+    buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
+
+    const inputs = [...event.target.parentElement.querySelector('div').children];
+    inputs.forEach(child=>child.setAttribute('disabled', true));
+
+    this._editModeEnabled = false;
   }
 
   handleDelete(event) {
@@ -147,13 +243,13 @@ export default class ExpensesSection {
     event.preventDefault();
 
     if (!this._inputName.value.trim() ||
-        !this._inputAmount.value.trim() || 
-        +this._inputAmount.value < 0 ||
-        +this._inputPurpose.value < 1 ||
-        +this._inputPeriodicity.value < 1 ) {
+        +this._inputAmount.value <= 0 ||
+        +this._inputPurpose.selectedIndex < 1 ||
+        +this._inputPeriodicity.selectedIndex < 1 ) {
           alert('Некорректные данные');
           return;
         }
+
     if (!this._calendar.value) { //чтобы не добавлялись записи, например, на 31е ноября
       alert('Нет такой даты');
       return;
@@ -162,12 +258,13 @@ export default class ExpensesSection {
     const data = {
       name: this._inputName.value,
       amount: this._inputAmount.value,
-      purpose: this._inputPurpose.options[this._inputPurpose.value].text,
-      periodicity: this._inputPeriodicity.options[this._inputPeriodicity.value].text,
+      purpose: this._inputPurpose.options[this._inputPurpose.selectedIndex/*value*/].text,
+      periodicity: this._inputPeriodicity.options[this._inputPeriodicity.selectedIndex/*value*/].text,
     }
 
     this._props.createCb('expenses', this._calendar.value, data);
 
     this._form.reset();
   }
+
 }

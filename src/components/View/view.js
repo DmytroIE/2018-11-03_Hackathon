@@ -3,7 +3,6 @@ import EventEmitter from '../EventEmmiter/eventEmmiter';
 import ExpensesSection from './Sections/expenses-section';
 
 
-
 const numberOfActiveSectionAtStartUp = 1;
 
 
@@ -77,7 +76,7 @@ export default class View extends EventEmitter {
   }
 
   handleEdit(uuid, newData) {
-    this.emitEvent('edit', uuid, ); 
+    this.emitEvent('edit', uuid, newData); 
   }
 
   handleDelete(uuid) {
@@ -86,7 +85,7 @@ export default class View extends EventEmitter {
   }
 
   render(listOfRecords) {
-    console.log('render in view');
+    //console.log('render in view');
     const sortedByCategories = {};
     listOfRecords.forEach(record => {
       if(!sortedByCategories[record.category]) {
@@ -103,12 +102,12 @@ export default class View extends EventEmitter {
   setActiveSection(numberOfActiveSection) {
 
     this._sections[numberOfActiveSection].HTMLEl.classList.remove('section--hidden');
-    this._sections[numberOfActiveSection].tab.classList.add('nav__item--active');
+    this._sections[numberOfActiveSection].tab.classList.add('nav__link--active');
 
     this._sections.forEach((section, idx) => {
       if (idx !== numberOfActiveSection) {
         section.HTMLEl.classList.add('section--hidden');
-        section.tab.classList.remove('nav__item--active');
+        section.tab.classList.remove('nav__link--active');
       }
     });
   }

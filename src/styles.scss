@@ -1,18 +1,117 @@
-@import './components/View/view.scss';
+@import "./components/View/view.scss";
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+// Fonts
+$main-font: "Roboto", sans-serif;
+
+$thin: 100;
+$light: 300;
+$regular: 400;
+$medium: 500;
+$bold: 700;
+$black: 900;
+
+// Colors
+
+$main-color-warm: #ff5722;
+$main-color-cold: #3f51b5;
+$main-color-light: #fff;
+
+$text-color-light: #b3b3b3;
+$text-color-dark: #4d4d4d;
+$headings-color: #3f51b5;
+
+// Geometry
+// Desktop
+$desktop-wrapper-width: 1040px;
+
+// Common
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -20,205 +119,269 @@ time, mark, audio, video {
 
 body {
   position: relative;
-  // font-family: 'Poppins', sans-serif;
-  // font-size: 12px;
-  //background-color: #aaa;
+  font-family: $main-font;
+  color: $text-color-dark;
+  font-size: 16px;
+  font-weight: $light;
 }
-.container{
-  width: 1040px;
-  margin: 0 auto;
-}
-.header{
-  min-height: 68px;
-  padding: 24px 0;
-  background-color: #3f51b5;
-}
-.nav{
-    display: flex;
-    justify-content: space-between;
 
-  &__logo{
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.header {
+  min-height: 68px;
+  padding: 17px 0;
+  background-color: #3f51b5;
+
+  &__nav {
+    width: $desktop-wrapper-width;
+    margin: 0 auto;
+  }
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
     display: block;
     text-decoration: none;
+    width: 107px;
   }
-  &__list{
+  &__list {
     display: flex;
     list-style: none;
-   
+  }
 
-  }
-  &__link{
-    position: relative;
-    color: #ffffff;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    text-decoration: none;
-        
-    &:hover{
-      color: #ff5722;
+  &__item {
+    margin-right: 41px;
+
+    &:last-child {
+      margin-right: 5px;
     }
- 
-    &:hover::after{
-      width: 100%;
-         }
-    &::after{
-    margin-top: 10px;
-    display: block;
-    position: absolute;    
-    left: 0;    
-    width: 0;
-    height: 2px;
-    background-color:  #ff5722;
-    content: "";
-    transition: width 0.3s ease-out;
-      }
   }
-  &__item{
-    margin-right: 35px;
+
+  &__link {
+    position: relative;
+    color: $main-color-light;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 20px;
+    font-weight: $light;
+    text-decoration: none;
 
     &--active {
-      color:  #ff5722;
+      color: $main-color-warm;
     }
 
+    &:hover {
+      color: $main-color-warm;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    &::after {
+      //margin-top: 10px;
+      display: block;
+      position: absolute;
+      bottom: -23px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: $main-color-warm;
+      content: "";
+      transition: width 0.3s ease-out;
+    }
   }
 }
-.main{
-  
-  // padding: 46px 120px;
+.main {
 }
 
 .section {
   background-color: #e6e6e6;
-  // background-color: #ffffff;
   padding: 46px 0px;
-  &__content{
+
+  &__content {
     margin: 0 auto;
-    background-color: #ffffff;
-    width: 1040px;
-    min-height: 600px;
+    background-color: $main-color-light;
+    width: $desktop-wrapper-width;
   }
   &--hidden {
-    display:none;
+    display: none;
   }
 }
 
-.expenses{
-  padding: 30px 100px 60px;
+.expenses {
+  padding: 30px 150px 60px;
+  min-height: 600px;
 
-  &__calendar{
+  &__calendar-cont {
     text-align: center;
     margin-bottom: 55px;
-    
   }
-  &__content{
-    padding: 30px 100px 60px;
-  }
-  &__form{
+
+  &__form {
     text-align: center;
     margin-bottom: 40px;
   }
-  &__chart{
+  &__chart {
     width: 350px;
     height: 250px;
     margin: 0 auto;
   }
-  &__list{
-    padding: 30px 5px 20px 20px;
+  &__list {
+    padding: 30px 0;
     list-style: none;
     margin-bottom: 50px;
-    
   }
-  &__item{
+  &__item {
     margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__total {
-    color:  #3f51b5;
-    font-family: 'Ubuntu', sans-serif;
+    color: #3f51b5;
+    font-family: "Ubuntu", sans-serif;
     font-size: 26px;
     font-weight: 400;
     margin-bottom: 45px;
     text-align: center;
   }
-
- 
-}
-.exp-item{
-  
-    display: flex;
-    justify-content: space-around;
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    color: #4d4d4d;
-
-  &__name,
-  &__purpose,
-  &__periodicity{
-    width: 150px;
-    margin-right: 60px;
-  }
-  &__periodicity{
-    margin-right: 0;
-  }
-  &__purpose{
-    margin-right: 100px;
-  }
-  &__amount{
-    width: 90px;
-    margin-right: 60px;
-  }
-
-  &__edit,
-  &__delete{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  &__edit{
-    background-image: url(img/edit.svg);
-    margin-right: 5px;
-  }
-  &__delete{
-    background-image: url(img/x.svg);
-  }
 }
 
-.exp-form{
+.calendar {
+  font-family: $main-font;
+  color: $headings-color;
+  font-size: 26px;
+  font-weight: $thin;
+  border: none;
+
+  //for firefox
+  //clip-path: inset(0 8px 0 0);
+  position: relative;
+
+  &::-webkit-calendar-picker-indicator {
+    color: transparent;
+    opacity: 1;
+    background: url("./img/calendar.svg") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  &::-webkit-clear-button {
+    display: none;
+  }
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+
+}
+
+.exp-item {
+  display: flex;
+  justify-content: space-between;
+
+  &--edited {
+    background-color: #dfcbcb;
+    padding: 5px 0;
+  }
+
+  &__inputs-line {
+    flex-grow: 1;
+    margin-right: 15px;
+
+    & select[data-id="edit-periodicity"] {
+      width: 130px;
+    }
+  }
+
+  &__item-buttons {
+  }
+
+  // &__edit,
+  // &__delete{
+  //   width: 20px;
+  //   height: 20px;
+  //   cursor: pointer;
+  // }
+  // &__edit{
+  //   background-image: url(img/edit.svg);
+  //   margin-right: 5px;
+  // }
+  // &__delete{
+  //   background-image: url(img/x.svg);
+  // }
+}
+
+.exp-inputs-line {
+  display: flex;
+  justify-content: space-between;
+
   &__name,
   &__amount,
-  &__category,
-  &__type {
-    font-family: 'Roboto', sans-serif;
-    // color: #b3b3b3;
-    color: #5c626d;
+  &__purpose,
+  &__periodicity {
+    color: $text-color-dark;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: $light;
     border: none;
-    border-bottom: 1px solid #b3b3b3;
+    border-bottom: 1px solid $text-color-light;
     outline: transparent;
-    margin-right: 60px;
+
+    &::placeholder {
+      color: $text-color-light;
+    }
+
+    &:disabled {
+      background-color: $main-color-light;
+      border: none;
+      color: $text-color-dark;
+
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      //text-indent: 0.1;
+      //text-overflow: '';
+    }
   }
-  &__name{
-    width: 175px;
+  &__name {
+    width: 170px;
   }
-  &__amount{
-  width: 90px;
-  }
-  &__category {
-    width: 175px;
+  &__amount {
+    width: 80px;
     
   }
-  &__type{
-    width: 175px;
-    margin-right: 0;
+  &__purpose,
+  &__periodicity {
+    width: 170px;
+    color: $text-color-light;
+
+    & option:nth-of-type(n + 2) {
+      color: $text-color-dark;
+    }
   }
-  &__button-cont{
-    
+}
+
+.exp-form {
+  &__inputs-line {
+    margin-bottom: 20px;
   }
-  &__add-button{
+
+  &__button-cont {
+  }
+  &__add-button {
     display: flex;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     color: #ffffff;
     font-size: 16px;
     font-weight: 300;
@@ -231,24 +394,43 @@ body {
     outline: transparent;
     cursor: pointer;
   }
-   
 }
-.footer{
+
+.item-button {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  &--hidden {
+    display: none;
+  }
+
+  &__edit {
+    background-image: url(img/edit.svg);
+    margin-right: 5px;
+  }
+  &__delete {
+    background-image: url(img/x.svg);
+  }
+
+  &__confirm {
+    background-image: url(img/confirm.svg);
+    margin-right: 5px;
+  }
+  &__cancel {
+    background-image: url(img/x-bold.svg);
+  }
+}
+
+.footer {
   display: flex;
   padding: 15px;
   background-color: #3f51b5;
 
-  &__content{
-    font-family: 'Roboto', sans-serif;
+  &__content {
+    font-family: "Roboto", sans-serif;
     color: #ffffff;
     font-size: 12px;
     margin: 0 auto;
   }
 }
- 
-
-
-
-
-
-
