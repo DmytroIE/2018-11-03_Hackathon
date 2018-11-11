@@ -31,9 +31,22 @@ module.exports = {
         test: /(\.css$)|(\.scss$)/,
         use: [MiniCssExtractPlugin.loader,  "css-loader", "postcss-loader","sass-loader"],
       },
+      //{
+        //test: /\.hbs$/, loader: "handlebars-loader",
+        
+      //},
+      //----------------------
       {
-        test: /\.hbs$/, loader: "handlebars-loader",
+        test: /\.hbs$/,
+        loader: 'handlebars-loader',
+        options: {
+            knownHelpersOnly: false,
+            //inlineRequires: /\/assets\/(:?images|audio|video)\//ig,
+            helperDirs: [path.join(__dirname, '/src/helpers')],
+            //partialDirs: [path.join(PATHS.TEMPLATES, 'partials')],
+        },
       },
+      //---------------------
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         use: [
