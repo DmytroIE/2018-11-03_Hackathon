@@ -9,47 +9,53 @@
       href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu:300,400,500"
       rel="stylesheet"
     />
-  <link rel="shortcut icon" href="favicon.ico"><link href="main.css?5f85da6334afe078751e" rel="stylesheet"></head>
+  <link rel="shortcut icon" href="favicon.ico"><link href="main.css?9fdb54c2172ca8bd728e" rel="stylesheet"></head>
 
   <body>
-    <header class="header">
-      <nav class="nav header__nav ">
-        <a href="#" class="logo nav__logo">
-          <img
-            class="logo__img"
-            src="img/logo.png"
-            alt="Logo"
-            width="86"
-            height="23"
-          />
-        </a>
-        <ul class="nav__list" id="tabs">
-          <li class="nav__item">
-            <a href="" id="income-tab" class="nav__link" data-index="0">Доходы</a>
-          </li>
-          <li class="nav__item">
-            <a href="" id="expenses-tab" class="nav__link" data-index="1">Расходы</a>
-          </li>
-          <li class="nav__item">
-            <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
-          </li>
-          <li class="nav__item">
-            <a href="" id="charts-tab" class="nav__link" data-index="3">Графики</a>
-          </li>
-          <li class="nav__item">
-            <a href="" id="settings-tab" class="nav__link" data-index="4">Настройки</a>
-          </li>
-        </ul>
-      </nav>
+    <header class="header">        
+      <div class="wrapper">
+        <a href="#" class="logo header__logo">
+            <img
+              class="logo__img"
+              src="img/logo.png"
+              alt="Logo"
+              width="86"
+              height="23"
+            />
+          </a>
+        <nav class="nav header__nav ">
+
+          <ul class="nav__list" id="tabs">
+            <li class="nav__item">
+              <a href="" id="income-tab" class="nav__link" data-index="0">Доходы</a>
+            </li>
+            <li class="nav__item">
+              <a href="" id="expenses-tab" class="nav__link" data-index="1">Расходы</a>
+            </li>
+            <li class="nav__item">
+              <a href="" id="goals-tab" class="nav__link" data-index="2">Цели</a>
+            </li>
+            <li class="nav__item">
+              <a href="" id="charts-tab" class="nav__link" data-index="3">Графики</a>
+            </li>
+            <li class="nav__item">
+              <a href="" id="settings-tab" class="nav__link" data-index="4">Настройки</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <main class="main">
+      <h1 class="visually-hidden">Финансовый калькулятор</h1>
       <section class="section" id="income-section">
+        <h2 class="visually-hidden">Доходы</h2>
         <!-- Необходимо добавить -->
         <div class="income section__content"><p>INCOME</p></div>
       </section>
 
       <section class="section" id="expenses-section">
+        <h2 class="visually-hidden">Расходы</h2>
         <div class="expenses section__content">
           <div class="expenses__calendar-cont">
             <input type="date" class="calendar expenses__calendar" data-id="calendar" >
@@ -115,16 +121,19 @@
       </section>
 
       <section class="section" id="goals-section">
+        <h2 class="visually-hidden">Цели</h2>
         <!-- Необходимо добавить -->
         <div class="goals section__content"><p>GOALS</p></div>
       </section>
 
       <section class="section" id="charts-section">
+        <h2 class="visually-hidden">Графики</h2>
         <!-- Необходимо добавить -->
         <div class="charts section__content"><p>CHARTS</p></div>
       </section>
 
       <section class="section" id="settings-section">
+        <h2 class="visually-hidden">Настройки</h2>
         <!-- Необходимо добавить -->
         <div class="settings section__content"><p>SETTINGS</p></div>
       </section>
@@ -133,5 +142,5 @@
     <footer class="footer">
       <p class="footer__content">Разработано для GoIt | 2018</p>
     </footer>
-  <script type="text/javascript" src="bundle.js?5f85da6334afe078751e"></script></body>
+  <script type="text/javascript" src="bundle.js?9fdb54c2172ca8bd728e"></script></body>
 </html>
