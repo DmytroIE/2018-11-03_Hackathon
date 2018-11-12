@@ -1,6 +1,28 @@
 @import "./components/View/view.scss";
 
-// Fonts
+@mixin small-desktop{
+  @media (max-width: 1079px){
+    @content;
+  }
+}
+
+
+@mixin tablet{
+  @media (max-width: 767px){
+    @content;
+  }
+}
+
+
+@mixin mobile{
+  @media (max-width: 575px){
+    @content;
+  }
+}
+
+
+
+// Fonts-----------------------------------------------------------------------
 $main-font: "Roboto", sans-serif;
 
 $thin: 100;
@@ -10,7 +32,7 @@ $medium: 500;
 $bold: 700;
 $black: 900;
 
-// Colors
+// Colors-----------------------------------------------------------------------
 
 $main-color-warm: #ff5722;
 $main-color-cold: #3f51b5;
@@ -24,11 +46,26 @@ $headings-color: #3f51b5;
 // Desktop
 $desktop-wrapper-width: 1040px;
 
-// Common
+// Common-----------------------------------------------------------------------
 img {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 html,
@@ -125,36 +162,82 @@ body {
   font-weight: $light;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-.header {
-  min-height: 68px;
-  padding: 17px 0;
-  background-color: #3f51b5;
-
-  &__nav {
-    width: $desktop-wrapper-width;
-    margin: 0 auto;
-  }
-}
-.nav {
+.wrapper{
+  width: $desktop-wrapper-width;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @include mobile{
+    display: block;
+    width: 100%;
+  }
+}
+
+// Inputs-----------------------------------------------------------------------
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    //-webkit-appearance: none;
+    //margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="select"]{
+  // -moz-appearance: none;
+  // -webkit-appearance: none;
+  // appearance: none;
+  box-shadow: 0 0 0 30px #ffffff inset
+}
+
+input[type="date"]{
+  &::-webkit-calendar-picker-indicator {
+    color: transparent;
+    opacity: 1;
+    background: url("./img/calendar.svg") no-repeat center;
+    background-size: contain;
+    //position: absolute;
+    //top: 2px;
+    //right: 2px;
+  }
+
+  &::-webkit-clear-button {
+    display: none;
+  }
+  &::-webkit-inner-spin-button {
+    //display: none;
+  }
+}
+
+// Elements-----------------------------------------------------------------------
+.header {
+  //min-height: 68px;
+  padding: 17px 0;
+  background-color: #3f51b5;
+
 
   &__logo {
     display: block;
     text-decoration: none;
     width: 107px;
   }
+
+  &__nav {
+  }
+}
+
+.nav {
+
   &__list {
     display: flex;
     list-style: none;
+
+    @include mobile{
+      display: block;
+    }
   }
 
   &__item {
@@ -196,10 +279,14 @@ input::-webkit-inner-spin-button {
       background-color: $main-color-warm;
       content: "";
       transition: width 0.3s ease-out;
+      @include mobile{
+        display: none;
+      }
     }
   }
 }
 .main {
+
 }
 
 .section {
@@ -210,6 +297,13 @@ input::-webkit-inner-spin-button {
     margin: 0 auto;
     background-color: $main-color-light;
     width: $desktop-wrapper-width;
+    min-height: calc(100vh - 205px);
+    padding: 30px 150px 60px;
+
+    @include mobile{
+      width: 100%;
+      padding: 20px 5px 20px;
+    }
   }
   &--hidden {
     display: none;
@@ -217,8 +311,8 @@ input::-webkit-inner-spin-button {
 }
 
 .expenses {
-  padding: 30px 150px 60px;
-  min-height: 600px;
+  
+  //min-height: 600px;
 
   &__calendar-cont {
     text-align: center;
@@ -233,6 +327,11 @@ input::-webkit-inner-spin-button {
     width: 350px;
     height: 250px;
     margin: 0 auto;
+
+    @include mobile{
+      width: 280px;
+      height: 200px;
+    }
   }
   &__list {
     padding: 30px 0;
@@ -263,89 +362,54 @@ input::-webkit-inner-spin-button {
   font-size: 26px;
   font-weight: $thin;
   border: none;
-
-  //for firefox
-  //clip-path: inset(0 8px 0 0);
-  position: relative;
-
-  &::-webkit-calendar-picker-indicator {
-    color: transparent;
-    opacity: 1;
-    background: url("./img/calendar.svg") no-repeat center;
-    background-size: contain;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-  }
-
-  &::-webkit-clear-button {
-    display: none;
-  }
-  &::-webkit-inner-spin-button {
-    display: none;
-  }
-
-}
-
-.exp-item {
-  display: flex;
-  justify-content: space-between;
-
-  &--edited {
-    background-color: #dfcbcb;
-    padding: 5px 0;
-  }
-
-  &__inputs-line {
-    flex-grow: 1;
-    margin-right: 15px;
-
-    & select[data-id="edit-periodicity"] {
-      width: 130px;
-    }
-  }
-
-  &__item-buttons {
-  }
-
-  // &__edit,
-  // &__delete{
-  //   width: 20px;
-  //   height: 20px;
-  //   cursor: pointer;
-  // }
-  // &__edit{
-  //   background-image: url(img/edit.svg);
-  //   margin-right: 5px;
-  // }
-  // &__delete{
-  //   background-image: url(img/x.svg);
-  // }
+  cursor: pointer;
 }
 
 .exp-inputs-line {
   display: flex;
   justify-content: space-between;
 
+  @include mobile{
+    display: block;
+  }
+
   &__name,
   &__amount,
   &__purpose,
   &__periodicity {
+    display: block;
+    font-family: $main-font;
     color: $text-color-dark;
     font-size: 16px;
     font-weight: $light;
     border: none;
     border-bottom: 1px solid $text-color-light;
-    outline: transparent;
+    outline: none;
+    //appearance: none;
+    background-color: $main-color-light;
+    cursor: pointer;
+
+    @include mobile{
+      margin-bottom: 5px;
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
 
     &::placeholder {
+      font-family: $main-font;
+
+      font-size: 16px;
       color: $text-color-light;
+
     }
 
     &:disabled {
       background-color: $main-color-light;
       border: none;
       color: $text-color-dark;
+      cursor: default;
 
       -moz-appearance: none;
       -webkit-appearance: none;
@@ -372,15 +436,47 @@ input::-webkit-inner-spin-button {
   }
 }
 
+
+.exp-item {
+  display: flex;
+  justify-content: space-between;
+
+  &--edited {
+    background-color: #ecdede;
+    padding: 5px 0;
+    outline: 3px solid #ecdede;
+  }
+
+  &__inputs-line {
+    flex-grow: 1;
+    margin-right: 15px;
+
+    & select[data-id="edit-periodicity"] {
+      width: 130px;
+    }
+
+    & select {
+      color: $text-color-dark;
+    }
+  }
+
+  &__item-buttons {
+  }
+
+}
+
+
+
 .exp-form {
   &__inputs-line {
     margin-bottom: 20px;
   }
 
   &__button-cont {
+    text-align: right;
   }
   &__add-button {
-    display: flex;
+    //display: flex;
     font-family: "Roboto", sans-serif;
     color: #ffffff;
     font-size: 16px;
@@ -400,6 +496,13 @@ input::-webkit-inner-spin-button {
   width: 20px;
   height: 20px;
   cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  @include mobile{
+    width: 25px;
+    height: 25px;
+  }
 
   &--hidden {
     display: none;
@@ -408,6 +511,9 @@ input::-webkit-inner-spin-button {
   &__edit {
     background-image: url(img/edit.svg);
     margin-right: 5px;
+    @include mobile{
+      margin-right: 15px;
+    }
   }
   &__delete {
     background-image: url(img/x.svg);
@@ -416,6 +522,9 @@ input::-webkit-inner-spin-button {
   &__confirm {
     background-image: url(img/confirm.svg);
     margin-right: 5px;
+    @include mobile{
+      margin-right: 15px;
+    }
   }
   &__cancel {
     background-image: url(img/x-bold.svg);
