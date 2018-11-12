@@ -1,6 +1,6 @@
 <li class="exp-item expenses__item" data-uuid={{uuid}}>
 
-  <div class="exp-inputs-line exp-item__inputs-line">
+  <form action="#" class="exp-inputs-line exp-item__inputs-line">
     <input type="text" name="name" class="exp-inputs-line__name" value="{{data.name}}" data-id="edit-name" maxlength="20" disabled>
     <input type="number" name="amount" class="exp-inputs-line__amount" value={{data.amount}} data-id="edit-amount" disabled>
     <select name="purpose" data-id="edit-purpose" class="exp-inputs-line__purpose" disabled>
@@ -13,7 +13,7 @@
       <option value="2" {{compareStrings data.periodicity 'Каждодневные' 'selected'}}>Каждодневные</option>
       <option value="3" {{compareStrings data.periodicity 'КЕШ' 'selected'}}>КЕШ</option>
     </select>
-  </div>
+  </form>
 
   <div class="item-button item-button__edit" data-id="edit"></div>
   <div class="item-button item-button__delete" data-id="delete"></div>

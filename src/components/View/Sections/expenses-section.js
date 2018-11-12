@@ -135,7 +135,7 @@ export default class ExpensesSection {
   }
 
   handleEdit(event) {
-
+    //debugger
     if (!event.target.matches('div[data-id="edit"]')) {
       return;
     }
@@ -143,12 +143,17 @@ export default class ExpensesSection {
     if (this._editModeEnabled) {
       return;
     }
+
+    const nameInput = event.target.parentElement.querySelector('input[data-id="edit-name"]');
+    const amountInput = event.target.parentElement.querySelector('input[data-id="edit-amount"]');
+    const purposeInput = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
+    const periodicityInput = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
  
     // Запоминаем данные, которые были до редактирования на случай cancel
-    this._reservedName = event.target.parentElement.querySelector('input[data-id="edit-name"]').value;
-    this._reservedAmount = event.target.parentElement.querySelector('input[data-id="edit-amount"]').value;
-    this._reservedPurposeIdx = event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex;
-    this._reservedPeriodicityIdx = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex;
+    this._reservedName = nameInput.value;
+    this._reservedAmount = amountInput.value;
+    this._reservedPurposeIdx = purposeInput.selectedIndex;
+    this._reservedPeriodicityIdx = periodicityInput.selectedIndex;
 
     // Изменяем интерфейс
     this._editModeEnabled = true;
@@ -158,14 +163,18 @@ export default class ExpensesSection {
     const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
     buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
     // Сделать функцией!!!!!!!!
-    const inputs = [...event.target.parentElement.querySelector('div').children];
-    inputs.forEach(child=>child.removeAttribute('disabled'));
+    // не работает на айфонe
+    //const inputs = [...event.target.parentElement.querySelector('form').children];
+    //inputs.forEach(child=>/*child.removeAttribute('disabled')*/child.disabled=false);
 
-    
+    nameInput.removeAttribute('disabled');
+    amountInput.removeAttribute('disabled');
+    purposeInput.removeAttribute('disabled');
+    periodicityInput.removeAttribute('disabled');
   }
 
   handleConfirm(event) {
-
+    //debugger
     if (!event.target.matches('div[data-id="confirm"]')) { 
       return;
     }
@@ -208,15 +217,21 @@ export default class ExpensesSection {
   }
 
   handleCancel(event) {
-
+    //debugger
     if (!event.target.matches('div[data-id="cancel"]')) { 
       return;
     }
     // Возвращаем в инпуты значения, которые были до редактирования
-    event.target.parentElement.querySelector('input[data-id="edit-name"]').value = this._reservedName;
-    event.target.parentElement.querySelector('input[data-id="edit-amount"]').value = this._reservedAmount;
-    event.target.parentElement.querySelector('select[data-id="edit-purpose"]').selectedIndex = this._reservedPurposeIdx;
-    event.target.parentElement.querySelector('select[data-id="edit-periodicity"]').selectedIndex = this._reservedPeriodicityIdx;
+
+    const nameInput = event.target.parentElement.querySelector('input[data-id="edit-name"]');
+    const amountInput = event.target.parentElement.querySelector('input[data-id="edit-amount"]');
+    const purposeInput = event.target.parentElement.querySelector('select[data-id="edit-purpose"]');
+    const periodicityInput = event.target.parentElement.querySelector('select[data-id="edit-periodicity"]');
+
+    nameInput.value = this._reservedName;
+    amountInput.value = this._reservedAmount;
+    purposeInput.selectedIndex = this._reservedPurposeIdx;
+    periodicityInput.selectedIndex = this._reservedPeriodicityIdx;
 
 
     event.target.parentElement.classList.remove('exp-item--edited');
@@ -224,14 +239,19 @@ export default class ExpensesSection {
     const buttons = [...event.target.parentElement.querySelectorAll('.item-button')];
     buttons.forEach(button=>button.classList.toggle('item-button--hidden'));
 
-    const inputs = [...event.target.parentElement.querySelector('div').children];
-    inputs.forEach(child=>child.setAttribute('disabled', true));
+    //const inputs = [...event.target.parentElement.querySelector('form').children];
+    //inputs.forEach(child=>/*child.setAttribute('disabled', true)*/child.disabled=true);
+
+    nameInput.setAttribute('disabled');
+    amountInput.setAttribute('disabled');
+    purposeInput.setAttribute('disabled');
+    periodicityInput.setAttribute('disabled');
 
     this._editModeEnabled = false;
   }
 
   handleDelete(event) {
-
+    //debugger
     if (!event.target.matches('div[data-id="delete"]')) {
       return;
     }
