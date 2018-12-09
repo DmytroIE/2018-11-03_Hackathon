@@ -51,17 +51,69 @@
       <section class="section" id="income-section">
         <h2 class="visually-hidden">Доходы</h2>
         <!-- Необходимо добавить -->
-        <div class="income section__content"><p>INCOME</p></div>
+        <div class="income section__content">
+          <div class="income__calendar-cont">
+            <input type="date" class="calendar" data-id="calendar" >
+          </div>
+
+          <form action="#" class="inc-form income__form" data-id="form">
+            <div class="inputs-line inc-form__inputs-line">
+              <input
+                type="text"
+                name="name"
+                class="inputs-line__name"
+                placeholder="Название"
+                data-id="name"
+                maxlength="20"
+              >
+              <input
+                type="number"
+                name="amount"
+                class="inputs-line__amount"
+                placeholder="Сумма"
+                data-id="amount"
+              >
+              <select
+                name="periodicity"
+                data-id="periodicity"
+                class="inputs-line__periodicity"
+              >
+                <option value="0" disabled selected>Периодичность</option>
+                <option value="1">Ежемесячные</option>
+                <option value="2">Каждодневные</option>
+                <option value="3">КЕШ</option>
+              </select>
+            </div>
+            <div class="inc-form__button-cont">
+              <input
+                type="submit"
+                class="add-button"
+                value="Добавить"
+              />
+            </div>
+          </form>
+
+          <ul class="income__list" data-id="list">
+            <!-- Появляется динамически -->
+          </ul>
+
+          <p class="income__total" data-id="total"></p>
+
+          <div class="chart income__chart">
+            <canvas data-id="chart"> </canvas>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="expenses-section">
         <h2 class="visually-hidden">Расходы</h2>
         <div class="expenses section__content">
           <div class="expenses__calendar-cont">
-            <input type="date" class="calendar expenses__calendar" data-id="calendar" >
+            <input type="date" class="calendar" data-id="calendar" >
           </div>
 
           <form action="#" class="exp-form expenses__form" data-id="form">
+            <!-- <div class="exp-inputs-line exp-form__inputs-line"> -->
             <div class="exp-inputs-line exp-form__inputs-line">
               <input
                 type="text"
