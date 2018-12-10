@@ -1,0 +1,57 @@
+.inputs-line {
+  display: flex;
+  justify-content: space-between;
+
+  @include small-tablet{
+    display: block;
+  }
+
+  & input,
+  & select
+   {
+    display: block;
+    font-family: $main-font;
+    color: $text-color-dark;
+    font-size: 16px;
+    font-weight: $light;
+    border: none;
+    border-bottom: 1px solid $text-color-light;
+    outline: none;
+    background-color: $main-color-light;
+    cursor: pointer;
+
+    &::placeholder {
+      font-family: $main-font;
+
+      font-size: 16px;
+      color: $text-color-light;
+
+    }
+
+    &:disabled {
+      background-color: $main-color-light;
+      border: none;
+      color: $text-color-dark;
+      cursor: default;
+
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    @include small-tablet{
+      margin-bottom: 10px;
+      font-size: 18px;
+
+      &::placeholder {
+        font-size: 18px;
+      }
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+
+
+  }
+}

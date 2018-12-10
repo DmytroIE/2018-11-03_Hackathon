@@ -1,15 +1,14 @@
 import Chart from 'chart.js';
-import { formDateString } from '../../../utils/date';
+import { formDateString } from '../../../../utils/date';
 
-const expensesRecordTemplate = require('./expensesRecordTemplate.hbs');
+const incomeRecordTemplate = require('./incomeRecordTemplate.hbs');
 
-export default class ExpensesSection {
+export default class IncomeSection {
   constructor(root, props) {
     this.props = props;
 
     this.inputName = root.querySelector('input[data-id="name"]');
     this.inputAmount = root.querySelector('input[data-id="amount"]');
-    this.inputPurpose = root.querySelector('select[data-id="purpose"]');
     this.inputPeriodicity = root.querySelector(
       'select[data-id="periodicity"]',
     );
@@ -43,7 +42,7 @@ export default class ExpensesSection {
       labels: [],
       datasets: [
         {
-          label: 'Expenses',
+          label: 'Income',
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -58,33 +57,23 @@ export default class ExpensesSection {
     };
 
     this.chartOptions = {
-      legend: { display: false },
+      legend: { display: true },
       title: {
         display: false,
-        // text: 'Populations of Africa'
-      },
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
       },
     };
 
     this.expenseChart = new Chart(
       root.querySelector('canvas[data-id="chart"]').getContext('2d'),
       {
-        type: 'bar',
+        type: 'doughnut',
         data: this.chartData,
         options: this.chartOptions,
       },
     );
   }
 
-  render(items) {
+  render(items = []) {
     if (Array.isArray(items)) {
       // хранить данные в объекте на случай, если понадобится обновить
       // по событию календаря, который вызывает render, передавая аргументом
@@ -100,13 +89,13 @@ export default class ExpensesSection {
     // Создаем разметку
     if (onlyForThisDate.length > 0) {
       const markup = onlyForThisDate.reduce(
-        (acc, curr) => acc + expensesRecordTemplate(curr),
+        (acc, curr) => acc + incomeRecordTemplate(curr),
         '',
       );
       this.listOfRecords.innerHTML = markup;
     } else {
       this.listOfRecords.innerHTML =
-        '<li class="exp-item">Добавьте свои расходы здесь</li>';
+        '<li class="exp-item">Добавьте свои доходы здесь</li>';
     }
     // обнуляем предварительно общую сумму расходов
     let totalAmount = 0;
@@ -117,10 +106,10 @@ export default class ExpensesSection {
     const tempObj = {};
 
     onlyForThisDate.reduce((acc, curr) => {
-      if (!acc[curr.data.purpose]) {
-        acc[curr.data.purpose] = 0;
+      if (!acc[curr.data.periodicity]) {
+        acc[curr.data.periodicity] = 0;
       }
-      acc[curr.data.purpose] += +curr.data.amount;
+      acc[curr.data.periodicity] += +curr.data.amount;
       totalAmount += +curr.data.amount;
       return acc;
     }, tempObj);
@@ -148,9 +137,6 @@ export default class ExpensesSection {
     const amountInput = event.target.parentElement.querySelector(
       'input[data-id="edit-amount"]',
     );
-    const purposeInput = event.target.parentElement.querySelector(
-      'select[data-id="edit-purpose"]',
-    );
     const periodicityInput = event.target.parentElement.querySelector(
       'select[data-id="edit-periodicity"]',
     );
@@ -158,24 +144,22 @@ export default class ExpensesSection {
     // Запоминаем данные, которые были до редактирования на случай cancel
     this.reservedName = nameInput.value;
     this.reservedAmount = amountInput.value;
-    this.reservedPurposeIdx = purposeInput.selectedIndex;
     this.reservedPeriodicityIdx = periodicityInput.selectedIndex;
 
     // Изменяем интерфейс
     this.editModeEnabled = true;
-    event.target.parentElement.classList.add('exp-item--edited');
+    event.target.parentElement.classList.add('record--edited');
 
     // Прячем кнопки "Редактировать" и "Удалить"
     // показываем "применить изменения" и "отмена"
     const buttons = [
-      ...event.target.parentElement.querySelectorAll('.item-button'),
+      ...event.target.parentElement.querySelectorAll('.record__button'),
     ];
-    buttons.forEach(button => button.classList.toggle('item-button--hidden'));
+    buttons.forEach(button => button.classList.toggle('record__button--hidden'));
 
     // делаем поля ввода доступными для изменения
     nameInput.removeAttribute('disabled', ' ');
     amountInput.removeAttribute('disabled', ' ');
-    purposeInput.removeAttribute('disabled', ' ');
     periodicityInput.removeAttribute('disabled', ' ');
   }
 
@@ -192,10 +176,6 @@ export default class ExpensesSection {
       'input[data-id="edit-amount"]',
     ).value;
 
-    const inputPurpose = event.target.parentElement.querySelector(
-      'select[data-id="edit-purpose"]',
-    );
-    const purpose = inputPurpose.options[inputPurpose.selectedIndex].text;
     const inputPeriodicity = event.target.parentElement.querySelector(
       'select[data-id="edit-periodicity"]',
     );
@@ -211,7 +191,6 @@ export default class ExpensesSection {
     const newData = {
       name,
       amount,
-      purpose,
       periodicity,
     };
 
@@ -231,31 +210,26 @@ export default class ExpensesSection {
     const amountInput = event.target.parentElement.querySelector(
       'input[data-id="edit-amount"]',
     );
-    const purposeInput = event.target.parentElement.querySelector(
-      'select[data-id="edit-purpose"]',
-    );
     const periodicityInput = event.target.parentElement.querySelector(
       'select[data-id="edit-periodicity"]',
     );
 
     nameInput.value = this.reservedName;
     amountInput.value = this.reservedAmount;
-    purposeInput.selectedIndex = this.reservedPurposeIdx;
     periodicityInput.selectedIndex = this.reservedPeriodicityIdx;
 
     // Убираем красную подсветку редактируемой строки
-    event.target.parentElement.classList.remove('exp-item--edited');
+    event.target.parentElement.classList.remove('record--edited');
 
     // прячем конпки "применить изменения" и "отмена"
     const buttons = [
-      ...event.target.parentElement.querySelectorAll('.item-button'),
+      ...event.target.parentElement.querySelectorAll('.record__button'),
     ];
-    buttons.forEach(button => button.classList.toggle('item-button--hidden'));
+    buttons.forEach(button => button.classList.toggle('record__button--hidden'));
 
     // убираем режим редактирования из inputs
     nameInput.setAttribute('disabled', ' ');
     amountInput.setAttribute('disabled', ' ');
-    purposeInput.setAttribute('disabled', ' ');
     periodicityInput.setAttribute('disabled', ' ');
 
     this.editModeEnabled = false;
@@ -275,7 +249,6 @@ export default class ExpensesSection {
     if (
       !this.inputName.value.trim()
       || +this.inputAmount.value <= 0
-      || +this.inputPurpose.selectedIndex < 1
       || +this.inputPeriodicity.selectedIndex < 1
     ) {
       alert('Некорректные данные');
@@ -292,15 +265,12 @@ export default class ExpensesSection {
     const data = {
       name: this.inputName.value,
       amount: this.inputAmount.value,
-      purpose: this.inputPurpose.options[
-        this.inputPurpose.selectedIndex
-      ].text,
       periodicity: this.inputPeriodicity.options[
         this.inputPeriodicity.selectedIndex
       ].text,
     };
 
-    this.props.createCb('expenses', this.calendar.value, data);
+    this.props.createCb('income', this.calendar.value, data);
 
     this.form.reset();
   }

@@ -1,6 +1,7 @@
 import EventEmitter from '../EventEmmiter/eventEmmiter';
 
-import ExpensesSection from './Sections/expenses-section';
+import IncomeSection from './Sections/Income/income-section';
+import ExpensesSection from './Sections/Expenses/expenses-section';
 
 const numberOfActiveSectionAtStartUp = 1;
 
@@ -12,7 +13,11 @@ export default class View extends EventEmitter {
       {
         tab: document.getElementById('income-tab'),
         HTMLEl: document.getElementById('income-section'),
-        item: null,
+        item: new IncomeSection(document.getElementById('income-section'), {
+          createCb: this.handleCreate.bind(this),
+          editCb: this.handleEdit.bind(this),
+          deleteCb: this.handleDelete.bind(this),
+        }),
       },
       {
         tab: document.getElementById('expenses-tab'),
@@ -44,10 +49,10 @@ export default class View extends EventEmitter {
     this.setActiveSection(this.activeSection);
 
     this.model = model;
-    //----MODEL EVENTS----
+    // Подписка на события модели
     this.model.attachCallback('data_changed', this.render.bind(this));
 
-    //----EVENTS----
+    // обработчики DOM-событий
     document
       .getElementById('tabs')
       .addEventListener('click', this.handleTabs.bind(this));
@@ -87,7 +92,8 @@ export default class View extends EventEmitter {
       sortedByCategories[record.category].push(record);
     });
 
-    this.sections[1].item.render(sortedByCategories['expenses'] || []);
+    this.sections[0].item.render(sortedByCategories['income']);
+    this.sections[1].item.render(sortedByCategories['expenses']);
   }
 
   // ----AUX FUNCTIONS----
@@ -96,9 +102,7 @@ export default class View extends EventEmitter {
     this.sections[numberOfActiveSection].HTMLEl.classList.remove(
       'section--hidden',
     );
-    this.sections[numberOfActiveSection].tab.classList.add(
-      'nav__link--active',
-    );
+    this.sections[numberOfActiveSection].tab.classList.add('nav__link--active');
 
     this.sections.forEach((section, idx) => {
       if (idx !== numberOfActiveSection) {

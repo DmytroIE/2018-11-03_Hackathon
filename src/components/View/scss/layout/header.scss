@@ -1,0 +1,19 @@
+.header {
+  padding: 17px 0;
+  background-color: $main-color-cold;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    display: block;
+    text-decoration: none;
+    width: 107px;
+  }
+
+  &__nav {
+  }
+}
