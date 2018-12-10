@@ -18,7 +18,8 @@ function handleHamburgerClick(evt) {
 hamburger.addEventListener('click', handleHamburgerClick);
 
 document.body.addEventListener('click', ({ target }) => {
-  if (!target.matches('#tabs *')) {
+  if (!target.matches('#tabs *') && !target.matches('#tabs')) {
+    console.log(target);
     navList.classList.remove('nav__list--visible');
   }
 });
