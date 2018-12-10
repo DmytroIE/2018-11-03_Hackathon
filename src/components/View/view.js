@@ -1,20 +1,23 @@
 import EventEmitter from '../EventEmmiter/eventEmmiter';
 
-import ExpensesSection from './Sections/expenses-section';
-
+import IncomeSection from './Sections/Income/income-section';
+import ExpensesSection from './Sections/Expenses/expenses-section';
 
 const numberOfActiveSectionAtStartUp = 1;
-
 
 export default class View extends EventEmitter {
   constructor(model) {
     super();
 
-    this._sections = [
+    this.sections = [
       {
         tab: document.getElementById('income-tab'),
         HTMLEl: document.getElementById('income-section'),
-        item: null
+        item: new IncomeSection(document.getElementById('income-section'), {
+          createCb: this.handleCreate.bind(this),
+          editCb: this.handleEdit.bind(this),
+          deleteCb: this.handleDelete.bind(this),
+        }),
       },
       {
         tab: document.getElementById('expenses-tab'),
@@ -24,96 +27,88 @@ export default class View extends EventEmitter {
           editCb: this.handleEdit.bind(this),
           deleteCb: this.handleDelete.bind(this),
         }),
-
       },
-    {
-      tab: document.getElementById('goals-tab'),
-      HTMLEl: document.getElementById('goals-section'),
-      item: null
-    },
-    {
-      tab: document.getElementById('charts-tab'),
-      HTMLEl: document.getElementById('charts-section'),
-      item: null
-    },
-    {
-      tab: document.getElementById('settings-tab'),
-      HTMLEl: document.getElementById('settings-section'),
-      item: null
-    },
-  ];
-    this._activeSection = numberOfActiveSectionAtStartUp;
-  
-    this.setActiveSection(this._activeSection);
+      {
+        tab: document.getElementById('goals-tab'),
+        HTMLEl: document.getElementById('goals-section'),
+        item: null,
+      },
+      {
+        tab: document.getElementById('charts-tab'),
+        HTMLEl: document.getElementById('charts-section'),
+        item: null,
+      },
+      {
+        tab: document.getElementById('settings-tab'),
+        HTMLEl: document.getElementById('settings-section'),
+        item: null,
+      },
+    ];
+    this.activeSection = numberOfActiveSectionAtStartUp;
 
-    this._model = model;
-    //----MODEL EVENTS----
-    this._model.attachCallback('data_changed', this.render.bind(this));
+    this.setActiveSection(this.activeSection);
 
-    //----EVENTS----
-    document.getElementById('tabs').addEventListener('click', this.handleTabs.bind(this));
+    this.model = model;
+    // Подписка на события модели
+    this.model.attachCallback('data_changed', this.render.bind(this));
 
-
+    // обработчики DOM-событий
+    document
+      .getElementById('tabs')
+      .addEventListener('click', this.handleTabs.bind(this));
   }
-
-
 
   handleTabs(event) {
     event.preventDefault();
     if (!event.target.matches('a[id$="tab"]')) {
       return;
     }
-    const numberOfSelectedSection = + event.target.dataset.index;
-    if (this._activeSection === numberOfSelectedSection) {
+    const numberOfSelectedSection = +event.target.dataset.index;
+    if (this.activeSection === numberOfSelectedSection) {
       return;
     }
-    this._activeSection = numberOfSelectedSection;
-    this.setActiveSection(this._activeSection);
+    this.activeSection = numberOfSelectedSection;
+    this.setActiveSection(this.activeSection);
   }
 
   handleCreate(category, date, itemData) {
-    this.emitEvent('create', category, date, itemData); 
+    this.emitEvent('create', category, date, itemData);
   }
 
   handleEdit(uuid, newData) {
-    this.emitEvent('edit', uuid, newData); 
+    this.emitEvent('edit', uuid, newData);
   }
 
   handleDelete(uuid) {
-
-    this.emitEvent('delete', uuid);    
+    this.emitEvent('delete', uuid);
   }
 
   render(listOfRecords) {
-    //console.log('render in view');
     const sortedByCategories = {};
-    listOfRecords.forEach(record => {
-      if(!sortedByCategories[record.category]) {
+    listOfRecords.forEach((record) => {
+      if (!sortedByCategories[record.category]) {
         sortedByCategories[record.category] = [];
       }
       sortedByCategories[record.category].push(record);
-    })
+    });
 
-    this._sections[1].item.render(sortedByCategories['expenses'] || []);
+    this.sections[0].item.render(sortedByCategories['income']);
+    this.sections[1].item.render(sortedByCategories['expenses']);
   }
 
-  //----AUX FUNCTIONS----
+  // ----AUX FUNCTIONS----
 
   setActiveSection(numberOfActiveSection) {
+    this.sections[numberOfActiveSection].HTMLEl.classList.remove(
+      'section--hidden',
+    );
+    this.sections[numberOfActiveSection].tab.classList.add('nav__link--active');
 
-    this._sections[numberOfActiveSection].HTMLEl.classList.remove('section--hidden');
-    this._sections[numberOfActiveSection].tab.classList.add('nav__link--active');
-
-    this._sections.forEach((section, idx) => {
+    this.sections.forEach((section, idx) => {
       if (idx !== numberOfActiveSection) {
         section.HTMLEl.classList.add('section--hidden');
         section.tab.classList.remove('nav__link--active');
       }
     });
   }
-
-   
-    
-
-
 }

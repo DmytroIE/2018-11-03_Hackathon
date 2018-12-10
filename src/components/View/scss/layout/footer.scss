@@ -1,0 +1,12 @@
+.footer {
+  display: flex;
+  padding: 15px;
+  background-color: $main-color-cold;
+
+  &__content {
+    font-family: "Roboto", sans-serif;
+    color: $main-color-light;
+    font-size: 12px;
+    text-align: center;
+  }
+}

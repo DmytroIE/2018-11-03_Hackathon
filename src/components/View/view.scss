@@ -1,0 +1,20 @@
+@import "./scss/utils/variables.scss";
+@import "./scss/utils/mixins.scss";
+
+@import "./scss/base/visually-hidden.scss";
+@import "./scss/base/common.scss";
+@import "./scss/base/browser-components.scss";
+
+@import "./scss/components/nav.scss";
+@import "./scss/components/calendar.scss";
+@import "./scss/components/input-form.scss";
+@import "./scss/components/inputs-line.scss";
+@import "./scss/components/record.scss";
+@import "./scss/components/total.scss";
+
+@import "./scss/layout/wrapper.scss";
+@import "./scss/layout/header.scss";
+@import "./scss/layout/footer.scss";
+@import "./scss/layout/section.scss";
+@import "./scss/layout/income.scss";
+@import "./scss/layout/expenses.scss";

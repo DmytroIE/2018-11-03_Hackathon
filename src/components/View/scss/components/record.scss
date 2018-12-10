@@ -1,0 +1,54 @@
+.record {
+  display: flex;
+  justify-content: space-between;
+
+  &--edited {
+    background-color: #ecdede;
+    padding: 5px 0;
+    outline: 3px solid #ecdede;
+  }
+
+  &__inputs-line {
+    flex-grow: 1;
+    margin-right: 15px;
+  }
+
+  &__button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+  
+    @include mobile{
+      width: 25px;
+      height: 25px;
+    }
+  
+    &--hidden {
+      display: none;
+    }
+  
+    &--edit {
+      background-image: url(img/edit.svg);
+      margin-right: 5px;
+      @include mobile{
+        margin-right: 15px;
+      }
+    }
+    &--delete {
+      background-image: url(img/x.svg);
+    }
+  
+    &--confirm {
+      background-image: url(img/confirm.svg);
+      margin-right: 5px;
+      @include mobile{
+        margin-right: 15px;
+      }
+    }
+    &--cancel {
+      background-image: url(img/x-bold.svg);
+    }
+  }
+}
