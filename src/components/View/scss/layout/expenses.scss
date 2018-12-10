@@ -1,0 +1,76 @@
+.expenses{
+  &__calendar-cont {
+    text-align: center;
+    margin-bottom: 55px;
+  }
+
+  &__form {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  & .inputs-line {
+    &__name {
+      width: 170px;
+    }
+    &__amount {
+      width: 80px;
+      
+    }
+    &__purpose,
+    &__periodicity {
+      width: 170px;
+      color: $text-color-light;
+  
+      & option:nth-of-type(n + 2) {
+        color: $text-color-dark;
+      }
+    }
+  }
+  
+  &__chart {
+    width: 350px;
+    height: 250px;
+    margin: 0 auto;
+
+    @include mobile{
+      width: 280px;
+      height: 200px;
+    }
+  }
+  &__list {
+    padding: 30px 0;
+    list-style: none;
+    margin-bottom: 50px;
+  }
+
+  &__total {
+    margin-bottom: 45px;
+  }
+
+  &__record {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    & .inputs-line {
+      &__name {
+        width: 150px;
+      }
+      &__amount {
+        width: 70px;
+        
+      }
+      &__periodicity {
+        width: 150px;
+        color: $text-color-light;
+    
+        & option:nth-of-type(n + 2) {
+          color: $text-color-dark;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.section {
+  background-color: $main-color-bg;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  @include small-tablet{
+    padding: 0;
+  }
+
+  &__content {
+    margin: 0 auto;
+    background-color: $main-color-light;
+    min-height: 500px;
+    padding: 30px 0 60px;
+
+    @include small-desktop{
+      padding: 20px 10px;
+    }
+
+    @include mobile{
+      width: 100%;
+      padding: 20px 10px;
+    }
+  }
+  &--hidden {
+    display: none;
+  }
+}

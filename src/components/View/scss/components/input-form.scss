@@ -1,0 +1,24 @@
+.input-form {
+  &__inputs-line {
+    margin-bottom: 20px;
+  }
+
+  &__button-cont {
+    text-align: right;
+  }
+  &__add-button {
+    //display: flex;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    border: none;
+    background-color: #ff5722;
+    padding: 8px 40px;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-left: auto;
+    outline: transparent;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,19 @@
+<li class="record income__record" data-uuid={{uuid}}>
+
+  <form action="#" class="inputs-line record__inputs-line">
+    <input type="text" name="name" class="inputs-line__name" value="{{data.name}}" data-id="edit-name" maxlength="20" disabled>
+    <input type="number" name="amount" class="inputs-line__amount" value={{data.amount}} data-id="edit-amount" disabled>
+    <select name="periodicity" data-id="edit-periodicity" class="inputs-line__periodicity" disabled>
+      <option value="1" {{compareStrings data.periodicity 'Ежемесячные' 'selected'}}>Ежемесячные</option>
+      <option value="2" {{compareStrings data.periodicity 'Каждодневные' 'selected'}}>Каждодневные</option>
+      <option value="3" {{compareStrings data.periodicity 'КЕШ' 'selected'}}>КЕШ</option>
+    </select>
+  </form>
+
+  <div class="record__button record__button--edit" data-id="edit"></div>
+  <div class="record__button record__button--delete" data-id="delete"></div>
+  <div class="record__button record__button--confirm record__button--hidden" data-id="confirm"></div>
+  <div class="record__button record__button--cancel record__button--hidden" data-id="cancel"></div>
+
+
+</li>
